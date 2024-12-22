@@ -1,0 +1,16 @@
+{
+  "name": "SvelteKit DevContainer",
+  "build": {
+    "dockerfile": ".devcontainer/Dockerfile"
+  },
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "svelte.svelte-vscode",
+    "ms-vscode.vscode-typescript-next"
+  ],
+  "postCreateCommand": "npm install"
+}
