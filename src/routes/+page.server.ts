@@ -2,10 +2,11 @@ import { db } from '$lib/server/db';
 import { expenses, users, type InsertExpense, type InsertUser } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
+import { getExpensesWithUserNames, getUsersWithTotalExpenses } from '$lib/server/db/queries';
 
 export const load: PageServerLoad = async () => {
-	const users = await db.query.users.findMany();
-	const expenses = await db.query.expenses.findMany();
+	const users = await getUsersWithTotalExpenses();
+	const expenses = await getExpensesWithUserNames();
 
 	return {
 		users,
@@ -53,10 +54,13 @@ export const actions: Actions = {
 		const date = data.get('date');
 		if (date === null) return;
 
+		const userId = data.get('userId');
+		if (userId === null) return;
+
 		const newExpense: InsertExpense = {
 			amount: Number(amount),
 			description: description.toString(),
-			userId: 1, // TODO: get user id from session
+			userId: Number(userId),
 			date: date.toString()
 		};
 
