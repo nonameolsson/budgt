@@ -1,13 +1,15 @@
 import { db } from '$lib/server/db';
-import { users, type InsertUser } from '$lib/server/db/schema';
+import { users, type InsertUser, expenses, type InsertExpense } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	const users = await db.query.users.findMany();
+	const expenses = await db.query.expenses.findMany();
 
 	return {
-		users
+		users,
+		expenses
 	};
 };
 
@@ -38,5 +40,32 @@ export const actions: Actions = {
 		if (id === null) return;
 
 		await db.delete(users).where(eq(users.id, Number(id)));
+	},
+	createExpense: async ({ request }) => {
+		const data = await request.formData();
+
+		const amount = data.get('amount');
+		if (amount === null) return;
+
+		const description = data.get('description');
+		if (description === null) return;
+
+		const date = data.get('date');
+		if (date === null) return;
+
+		const newExpense: InsertExpense = {
+			amount: Number(amount),
+			description: description.toString(),
+			date: date.toString()
+		};
+
+		await db.insert(expenses).values(newExpense);
+	},
+	deleteExpense: async ({ request }) => {
+		const data = await request.formData();
+		const id = data.get('id');
+		if (id === null) return;
+
+		await db.delete(expenses).where(eq(expenses.id, Number(id)));
 	}
 };
