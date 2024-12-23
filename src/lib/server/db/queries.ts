@@ -1,41 +1,33 @@
-import { eq } from 'drizzle-orm';
 import { db } from '.';
-import { expenses, users, type InsertExpense, type InsertUser } from './schema';
+import {
+	accounts,
+	categories,
+	expenses,
+	type InsertAccount,
+	type InsertCategory,
+	type InsertExpense
+} from './schema';
 
-export async function createUser(data: InsertUser) {
-	await db.insert(users).values(data);
+export async function getExpenses() {
+	return db.query.expenses.findMany();
 }
 
 export async function createExpense(data: InsertExpense) {
 	await db.insert(expenses).values(data);
 }
 
-export async function getExpensesWithUserNames() {
-	const result = await db
-		.select({
-			id: expenses.id,
-			amount: expenses.amount,
-			description: expenses.description,
-			date: expenses.date,
-			userName: users.name
-		})
-		.from(expenses)
-		.innerJoin(users, eq(users.id, expenses.id));
-
-	return result;
+export async function createAccount(data: InsertAccount) {
+	await db.insert(accounts).values(data);
 }
 
-export async function getUsersWithTotalExpenses() {
-	const result = await db
-		.select({
-			id: users.id,
-			name: users.name,
-			age: users.age,
-			email: users.email
-		})
-		.from(users)
-		.leftJoin(expenses, eq(expenses.userId, users.id))
-		.groupBy(users.id);
+export async function getAccounts() {
+	return db.query.accounts.findMany();
+}
 
-	return result;
+export async function createCategory(data: InsertCategory) {
+	await db.insert(categories).values(data);
+}
+
+export async function getCategories() {
+	return db.query.categories.findMany();
 }
