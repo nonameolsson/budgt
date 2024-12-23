@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db';
-import { users, type InsertUser, expenses, type InsertExpense } from '$lib/server/db/schema';
+import { expenses, users, type InsertExpense, type InsertUser } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -56,6 +56,7 @@ export const actions: Actions = {
 		const newExpense: InsertExpense = {
 			amount: Number(amount),
 			description: description.toString(),
+			userId: 1, // TODO: get user id from session
 			date: date.toString()
 		};
 

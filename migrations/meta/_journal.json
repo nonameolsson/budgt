@@ -15,6 +15,20 @@
       "when": 1734991899259,
       "tag": "0001_add_expenses",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1734992646803,
+      "tag": "0002_numerous_zodiak",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1734993320469,
+      "tag": "0003_outgoing_nekra",
+      "breakpoints": true
     }
   ]
 }
