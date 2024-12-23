@@ -1,47 +1,30 @@
 import { db } from '$lib/server/db';
-import { expenses, users, type InsertExpense, type InsertUser } from '$lib/server/db/schema';
+
+import { getAccounts, getCategories, getExpenses } from '$lib/server/db/queries';
+import {
+	accounts,
+	categories,
+	expenses,
+	type InsertAccount,
+	type InsertCategory,
+	type InsertExpense
+} from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
-import { getExpensesWithUserNames, getUsersWithTotalExpenses } from '$lib/server/db/queries';
 
 export const load: PageServerLoad = async () => {
-	const users = await getUsersWithTotalExpenses();
-	const expenses = await getExpensesWithUserNames();
+	const expenses = await getExpenses();
+	const accounts = await getAccounts();
+	const categories = await getCategories();
 
 	return {
-		users,
-		expenses
+		expenses,
+		accounts,
+		categories
 	};
 };
 
 export const actions: Actions = {
-	create: async ({ request }) => {
-		const data = await request.formData();
-
-		const age = data.get('age');
-		if (age === null) return;
-
-		const email = data.get('email');
-		if (email === null) return;
-
-		const name = data.get('name');
-		if (name === null) return;
-
-		const newUser: InsertUser = {
-			age: Number(age),
-			email: email.toString(),
-			name: name.toString()
-		};
-
-		await db.insert(users).values(newUser);
-	},
-	delete: async ({ request }) => {
-		const data = await request.formData();
-		const id = data.get('id');
-		if (id === null) return;
-
-		await db.delete(users).where(eq(users.id, Number(id)));
-	},
 	createExpense: async ({ request }) => {
 		const data = await request.formData();
 
@@ -60,7 +43,6 @@ export const actions: Actions = {
 		const newExpense: InsertExpense = {
 			amount: Number(amount),
 			description: description.toString(),
-			userId: Number(userId),
 			date: date.toString()
 		};
 
@@ -72,5 +54,47 @@ export const actions: Actions = {
 		if (id === null) return;
 
 		await db.delete(expenses).where(eq(expenses.id, Number(id)));
+	},
+	createAccount: async ({ request }) => {
+		const data = await request.formData();
+
+		const name = data.get('name');
+		if (name === null) return;
+
+		const balance = data.get('balance');
+		if (balance === null) return;
+
+		const newAccount: InsertAccount = {
+			name: name.toString(),
+			balance: Number(balance)
+		};
+
+		await db.insert(accounts).values(newAccount);
+	},
+	deleteAccount: async ({ request }) => {
+		const data = await request.formData();
+		const id = data.get('id');
+		if (id === null) return;
+
+		await db.delete(accounts).where(eq(accounts.id, Number(id)));
+	},
+	createCategory: async ({ request }) => {
+		const data = await request.formData();
+
+		const name = data.get('name');
+		if (name === null) return;
+
+		const newCategory: InsertCategory = {
+			name: name.toString()
+		};
+
+		await db.insert(categories).values(newCategory);
+	},
+	deleteCategory: async ({ request }) => {
+		const data = await request.formData();
+		const id = data.get('id');
+		if (id === null) return;
+
+		await db.delete(categories).where(eq(categories.id, Number(id)));
 	}
 };
