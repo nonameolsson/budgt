@@ -3,21 +3,21 @@
 	function addUser() {}
 </script>
 
-<div>
-	<form method="POST" action="?/create">
-		<input type="text" required name="name" placeholder="John Doe" />
-		<input type="number" required name="age" placeholder="Age" />
-		<input type="email" required name="email" placeholder="your@email.com" />
-		<button type="submit">Create user</button>
+<div class="container mx-auto p-4">
+	<form method="POST" action="?/create" class="space-y-4 bg-white p-6 rounded-lg shadow-md">
+		<input type="text" required name="name" placeholder="John Doe" class="w-full p-2 border border-gray-300 rounded" />
+		<input type="number" required name="age" placeholder="Age" class="w-full p-2 border border-gray-300 rounded" />
+		<input type="email" required name="email" placeholder="your@email.com" class="w-full p-2 border border-gray-300 rounded" />
+		<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">Create user</button>
 	</form>
-	<ul>
+	<ul class="mt-6 space-y-4">
 		{#each data.users as { age, name, email, id }}
-			<li>
-				<div>
-					{name}: {age}, {email} -
-					<form method="POST" action="?/delete">
+			<li class="bg-white p-4 rounded-lg shadow-md">
+				<div class="flex justify-between items-center">
+					<span>{name}: {age}, {email}</span>
+					<form method="POST" action="?/delete" class="inline">
 						<input type="hidden" name="id" value={id} />
-						<button>Delete</button>
+						<button class="bg-red-500 text-white p-2 rounded">Delete</button>
 					</form>
 				</div>
 			</li>
