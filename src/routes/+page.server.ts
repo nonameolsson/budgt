@@ -1,10 +1,10 @@
 import { db } from '$lib/server/db';
-import { usersTable, type InsertUser } from '$lib/server/db/schema';
+import { users, type InsertUser } from '$lib/server/db/schema';
 import { eq } from 'drizzle-orm';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	const users = await db.query.usersTable.findMany();
+	const users = await db.query.users.findMany();
 
 	return {
 		users
@@ -30,13 +30,13 @@ export const actions: Actions = {
 			name: name.toString()
 		};
 
-		await db.insert(usersTable).values(newUser);
+		await db.insert(users).values(newUser);
 	},
 	delete: async ({ request }) => {
 		const data = await request.formData();
 		const id = data.get('id');
 		if (id === null) return;
 
-		await db.delete(usersTable).where(eq(usersTable.id, Number(id)));
+		await db.delete(users).where(eq(users.id, Number(id)));
 	}
 };
