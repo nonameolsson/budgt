@@ -10,10 +10,7 @@ export async function createCategory(data: InsertCategory) {
 }
 
 export async function getCategories() {
-	console.log(' get categories');
-	const data = await db.query.categories.findMany();
-	console.log('data', data);
-	return data;
+	return await db.query.categories.findMany();
 }
 
 export async function deleteCategory(id: string) {
