@@ -1,5 +1,4 @@
-import { db } from '$lib/server/db';
-import { accounts, type InsertAccount } from '$lib/server/db/accounts';
+import { createAccount, type InsertAccount } from '$lib/server/db/accounts';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
@@ -17,6 +16,6 @@ export const actions: Actions = {
 			balance: Number(balance)
 		};
 
-		await db.insert(accounts).values(newAccount);
+		await createAccount(newAccount);
 	}
 };

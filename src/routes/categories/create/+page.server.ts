@@ -1,5 +1,6 @@
 import { db } from '$lib/server/db';
-import { categories, type InsertCategory } from '$lib/server/db/categories';
+import type { InsertCategory } from '$lib/server/db/categories';
+import { categories } from '$lib/server/db/schema';
 import type { Actions } from './$types';
 
 export const actions: Actions = {

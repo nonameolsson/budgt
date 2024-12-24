@@ -1,16 +1,6 @@
-import { createId } from '@paralleldrive/cuid2';
 import { eq } from 'drizzle-orm';
-import { real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { db } from '.';
-
-export const accounts = sqliteTable('accounts', {
-	id: text()
-		.$defaultFn(() => createId())
-		.notNull()
-		.primaryKey(),
-	name: text('name').notNull(),
-	balance: real('balance').notNull()
-});
+import { accounts } from './schema';
 
 export type InsertAccount = typeof accounts.$inferInsert;
 export type SelectAccount = typeof accounts.$inferSelect;

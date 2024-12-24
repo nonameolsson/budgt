@@ -1,20 +1,6 @@
-import { createId } from '@paralleldrive/cuid2';
 import { eq } from 'drizzle-orm';
-import { real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { db } from '.';
-
-export const expenses = sqliteTable('expenses', {
-	id: text()
-		.$defaultFn(() => createId())
-		.primaryKey()
-		.notNull(),
-	amount: real('amount').notNull(),
-	description: text('description'),
-	date: text('date').notNull(),
-	createdAt: text('created_at')
-		.$defaultFn(() => new Date().toISOString())
-		.notNull()
-});
+import { expenses } from './schema';
 
 export type InsertExpense = typeof expenses.$inferInsert;
 export type SelectExpense = typeof expenses.$inferSelect;

@@ -1,15 +1,6 @@
-import { createId } from '@paralleldrive/cuid2';
 import { eq } from 'drizzle-orm';
-import { sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { db } from '.';
-
-export const categories = sqliteTable('categories', {
-	id: text()
-		.$defaultFn(() => createId())
-		.notNull()
-		.primaryKey(),
-	name: text('name').notNull()
-});
+import { categories } from './schema';
 
 export type InsertCategory = typeof categories.$inferInsert;
 export type SelectCategory = typeof categories.$inferSelect;
