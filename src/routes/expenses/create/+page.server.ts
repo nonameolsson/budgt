@@ -1,14 +1,10 @@
-import {
-	createExpense,
-	deleteExpense,
-	getExpenses,
-	type InsertExpense
-} from '$lib/server/db/expenses';
+import { db } from '$lib/server/db';
+import { createExpense, type InsertExpense } from '$lib/server/db/expenses';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	const expenses = await getExpenses();
-	return { expenses };
+	const accounts = await db.query.accounts.findMany();
+	return { accounts };
 };
 
 export const actions: Actions = {
@@ -24,6 +20,9 @@ export const actions: Actions = {
 		const date = data.get('date');
 		if (date === null) return;
 
+		const accountId = data.get('account');
+		if (accountId === null) return;
+
 		const newExpense: InsertExpense = {
 			amount: Number(amount),
 			description: description.toString(),
@@ -31,12 +30,5 @@ export const actions: Actions = {
 		};
 
 		await createExpense(newExpense);
-	},
-	deleteExpense: async ({ request }) => {
-		const data = await request.formData();
-		const id = data.get('id');
-		if (id === null) return;
-
-		await deleteExpense(String(id));
 	}
 };

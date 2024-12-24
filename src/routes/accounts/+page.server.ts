@@ -1,10 +1,14 @@
-import { db } from '$lib/server/db';
-import { accounts, type InsertAccount } from '$lib/server/db/schema';
-import { eq } from 'drizzle-orm';
+import {
+	createAccount,
+	deleteAccount,
+	getAccounts,
+	type InsertAccount
+} from '$lib/server/db/accounts';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	const accounts = await db.query.accounts.findMany();
+	const accounts = await getAccounts();
+
 	return { accounts };
 };
 
@@ -23,13 +27,13 @@ export const actions: Actions = {
 			balance: Number(balance)
 		};
 
-		await db.insert(accounts).values(newAccount);
+		await createAccount(newAccount);
 	},
 	deleteAccount: async ({ request }) => {
 		const data = await request.formData();
 		const id = data.get('id');
 		if (id === null) return;
 
-		await db.delete(accounts).where(eq(accounts.id, Number(id)));
+		await deleteAccount(String(id));
 	}
 };

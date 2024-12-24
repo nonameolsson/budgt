@@ -1,0 +1,15 @@
+{
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.codeActionsOnSave": ["addMissingImports", "source.organizeImports", "source.fixAll"],
+	"editor.formatOnSave": true,
+	"eslint.validate": ["javascript", "typescript", "svelte"],
+	"prettier.documentSelectors": ["**/*.svelte", "**/*.ts"],
+	"svelte.enable-ts-plugin": true,
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"[svelte]": {
+		"editor.defaultFormatter": "svelte.svelte-vscode"
+	}
+}
