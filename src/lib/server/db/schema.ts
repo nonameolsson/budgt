@@ -32,6 +32,9 @@ export const categories = sqliteTable('categories', {
 	name: text('name').notNull()
 });
 
+export type InsertCategory = typeof categories.$inferInsert;
+export type SelectCategory = typeof categories.$inferSelect;
+
 // EXPENSES
 
 export const expenses = sqliteTable('expenses', {

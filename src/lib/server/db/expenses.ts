@@ -1,10 +1,7 @@
 import { Value } from '@sinclair/typebox/value';
 import { eq } from 'drizzle-orm';
 import { db } from '.';
-import { expenses, expensesInsertSchema } from './schema';
-
-export type InsertExpense = typeof expenses.$inferInsert;
-export type SelectExpense = typeof expenses.$inferSelect;
+import { expenses, expensesInsertSchema, type InsertExpense } from './schema';
 
 export async function getExpenses() {
 	return await db.query.expenses.findMany();

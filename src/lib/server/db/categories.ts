@@ -1,9 +1,6 @@
 import { eq } from 'drizzle-orm';
 import { db } from '.';
-import { categories } from './schema';
-
-export type InsertCategory = typeof categories.$inferInsert;
-export type SelectCategory = typeof categories.$inferSelect;
+import { categories, type InsertCategory } from './schema';
 
 export async function createCategory(data: InsertCategory) {
 	return await db.insert(categories).values(data);
