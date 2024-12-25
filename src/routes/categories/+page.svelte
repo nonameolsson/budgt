@@ -1,5 +1,6 @@
 <script lang="ts">
 	let { data } = $props();
+	import { enhance } from '$app/forms';
 </script>
 
 <div class="container mx-auto p-4">
@@ -9,7 +10,13 @@
 	>
 	<ul>
 		{#each data.categories as category}
-			<li class="mb-2">{category.name}</li>
+			<li class="mb-2 flex justify-between">
+				<span>{category.name}</span>
+				<form method="POST" action="?/deleteCategory" use:enhance>
+					<input type="hidden" name="id" value={category.id} />
+					<button type="submit" class="rounded bg-red-500 p-2 text-white">Delete</button>
+				</form>
+			</li>
 		{/each}
 	</ul>
 </div>

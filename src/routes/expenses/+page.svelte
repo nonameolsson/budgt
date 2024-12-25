@@ -1,5 +1,6 @@
 <script lang="ts">
 	let { data } = $props();
+	import { enhance } from '$app/forms';
 </script>
 
 <div class="container mx-auto p-4">
@@ -13,7 +14,7 @@
 				<span>{expense.description}</span>
 				<span>{expense.amount}</span>
 				<span>{expense.date}</span>
-				<form method="POST" action="?/deleteExpense" class="inline">
+				<form method="POST" action="?/deleteExpense" use:enhance class="inline">
 					<input type="hidden" name="id" value={expense.id} />
 					<button class="rounded bg-red-500 p-2 text-white">Delete</button>
 				</form>
