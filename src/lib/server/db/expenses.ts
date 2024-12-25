@@ -1,6 +1,7 @@
+import { Value } from '@sinclair/typebox/value';
 import { eq } from 'drizzle-orm';
 import { db } from '.';
-import { expenses } from './schema';
+import { expenses, expensesInsertSchema } from './schema';
 
 export type InsertExpense = typeof expenses.$inferInsert;
 export type SelectExpense = typeof expenses.$inferSelect;
@@ -10,7 +11,8 @@ export async function getExpenses() {
 }
 
 export async function createExpense(data: InsertExpense) {
-	return await db.insert(expenses).values(data);
+	const parsed = Value.Parse(expensesInsertSchema, data);
+	return await db.insert(expenses).values(parsed);
 }
 
 export async function deleteExpense(id: string) {
