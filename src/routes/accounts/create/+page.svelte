@@ -1,6 +1,15 @@
+<script lang="ts">
+	import { enhance } from '$app/forms';
+</script>
+
 <div class="container mx-auto p-4">
 	<h1 class="mb-4 text-2xl font-bold">Create Account</h1>
-	<form method="POST" action="?/createAccount" class="space-y-4 rounded-lg bg-white p-6 shadow-md">
+	<form
+		method="POST"
+		use:enhance
+		action="?/createAccount"
+		class="space-y-4 rounded-lg bg-white p-6 shadow-md"
+	>
 		<input
 			type="text"
 			required

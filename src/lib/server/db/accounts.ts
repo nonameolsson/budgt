@@ -1,12 +1,12 @@
+import { Value } from '@sinclair/typebox/value';
 import { eq } from 'drizzle-orm';
 import { db } from '.';
-import { accounts } from './schema';
-
-export type InsertAccount = typeof accounts.$inferInsert;
-export type SelectAccount = typeof accounts.$inferSelect;
+import { accountInsertSchema, accounts, type InsertAccount } from './schema';
 
 export async function createAccount(data: InsertAccount) {
-	return await db.insert(accounts).values(data);
+	const parsed = Value.Parse(accountInsertSchema, data);
+
+	return await db.insert(accounts).values(parsed);
 }
 
 export async function getAccounts() {

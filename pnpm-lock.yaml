@@ -14,6 +14,9 @@ importers:
       '@paralleldrive/cuid2':
         specifier: ^2.2.2
         version: 2.2.2
+      '@sinclair/typebox':
+        specifier: ^0.34.13
+        version: 0.34.13
       '@tailwindcss/container-queries':
         specifier: ^0.1.1
         version: 0.1.1(tailwindcss@3.4.17)
@@ -32,6 +35,9 @@ importers:
       drizzle-orm:
         specifier: ^0.38.2
         version: 0.38.2(@libsql/client@0.14.0)
+      drizzle-typebox:
+        specifier: ^0.2.0
+        version: 0.2.0(@sinclair/typebox@0.34.13)(drizzle-orm@0.38.2(@libsql/client@0.14.0))
       eslint-plugin-drizzle:
         specifier: ^0.2.3
         version: 0.2.3(eslint@9.17.0(jiti@1.21.7))
@@ -960,6 +966,9 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@sinclair/typebox@0.34.13':
+    resolution: {integrity: sha512-ceVKqyCEgC355Kw0s/0tyfY9MzMQINSykJ/pG2w6YnaZyrcjV48svZpr8lVZrYgWjzOmrIPBhQRAtr/7eJpA5g==}
+
   '@sveltejs/adapter-vercel@5.5.2':
     resolution: {integrity: sha512-6NpumKJ3m9Y6mkSFw4Z8YnaJZc42OWLkSFCk5hD6pLrS4f+b9JVBaXpKB/xkxf1Kf7JpzZtNZKbAaoRrTtJ+Hw==}
     peerDependencies:
@@ -1367,6 +1376,12 @@ packages:
         optional: true
       sqlite3:
         optional: true
+
+  drizzle-typebox@0.2.0:
+    resolution: {integrity: sha512-MvFeZubRlPdocd84/fA9meCkEvrHLCv1+4CNql9C4NeY9n1ITaDngs61kcvkRaFlt26bFMzv1XHZij8yd3J31w==}
+    peerDependencies:
+      '@sinclair/typebox': '>=0.34.8'
+      drizzle-orm: '>=0.36.0'
 
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
@@ -2922,6 +2937,8 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.29.1':
     optional: true
 
+  '@sinclair/typebox@0.34.13': {}
+
   '@sveltejs/adapter-vercel@5.5.2(@sveltejs/kit@2.15.0(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.15.0)(vite@6.0.5(@types/node@22.10.2)(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.15.0)(vite@6.0.5(@types/node@22.10.2)(jiti@1.21.7)(yaml@2.6.1)))(rollup@4.29.1)':
     dependencies:
       '@sveltejs/kit': 2.15.0(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.15.0)(vite@6.0.5(@types/node@22.10.2)(jiti@1.21.7)(yaml@2.6.1)))(svelte@5.15.0)(vite@6.0.5(@types/node@22.10.2)(jiti@1.21.7)(yaml@2.6.1))
@@ -3274,6 +3291,11 @@ snapshots:
   drizzle-orm@0.38.2(@libsql/client@0.14.0):
     optionalDependencies:
       '@libsql/client': 0.14.0
+
+  drizzle-typebox@0.2.0(@sinclair/typebox@0.34.13)(drizzle-orm@0.38.2(@libsql/client@0.14.0)):
+    dependencies:
+      '@sinclair/typebox': 0.34.13
+      drizzle-orm: 0.38.2(@libsql/client@0.14.0)
 
   eastasianwidth@0.2.0: {}
 

@@ -1,4 +1,6 @@
-import { createAccount, type InsertAccount } from '$lib/server/db/accounts';
+import { createAccount } from '$lib/server/db/accounts';
+import type { InsertAccount } from '$lib/server/db/schema';
+import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
 export const actions: Actions = {
@@ -6,10 +8,14 @@ export const actions: Actions = {
 		const data = await request.formData();
 
 		const name = data.get('name');
-		if (name === null) return;
+		if (!name) {
+			return fail(400, { name, missing: true });
+		}
 
 		const balance = data.get('balance');
-		if (balance === null) return;
+		if (!balance) {
+			return fail(400, { balance, missing: true });
+		}
 
 		const newAccount: InsertAccount = {
 			name: name.toString(),
@@ -17,5 +23,7 @@ export const actions: Actions = {
 		};
 
 		await createAccount(newAccount);
+
+		redirect(303, '/accounts');
 	}
 };
