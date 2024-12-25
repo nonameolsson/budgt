@@ -20,7 +20,7 @@ export const actions: Actions = {
 		const date = data.get('date');
 		if (date === null) return;
 
-		const accountId = data.get('account');
+		const accountId = data.get('accountId');
 		if (accountId === null) return;
 
 		const newExpense: InsertExpense = {

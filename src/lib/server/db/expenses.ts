@@ -10,7 +10,7 @@ export async function getExpenses() {
 }
 
 export async function createExpense(data: InsertExpense) {
-	await db.insert(expenses).values(data);
+	return await db.insert(expenses).values(data);
 }
 
 export async function deleteExpense(id: string) {
