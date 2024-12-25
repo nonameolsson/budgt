@@ -2,6 +2,7 @@ import { db } from '$lib/server/db';
 import type { InsertCategory } from '$lib/server/db/categories';
 import { categories } from '$lib/server/db/schema';
 import type { Actions } from './$types';
+import { redirect } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	createCategory: async ({ request }) => {
@@ -15,5 +16,6 @@ export const actions: Actions = {
 		};
 
 		await db.insert(categories).values(newCategory);
+		throw redirect(303, '/categories');
 	}
 };

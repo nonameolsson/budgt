@@ -1,6 +1,7 @@
 import { db } from '$lib/server/db';
 import { createExpense, type InsertExpense } from '$lib/server/db/expenses';
 import type { Actions, PageServerLoad } from './$types';
+import { redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async () => {
 	const accounts = await db.query.accounts.findMany();
@@ -30,5 +31,6 @@ export const actions: Actions = {
 		};
 
 		await createExpense(newExpense);
+		throw redirect(303, '/expenses');
 	}
 };

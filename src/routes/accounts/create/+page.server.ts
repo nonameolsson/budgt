@@ -24,6 +24,6 @@ export const actions: Actions = {
 
 		await createAccount(newAccount);
 
-		redirect(303, '/accounts');
+		throw redirect(303, '/accounts');
 	}
 };
