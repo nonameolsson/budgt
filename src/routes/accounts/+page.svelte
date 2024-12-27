@@ -13,6 +13,7 @@
 			<li class="mb-2 flex justify-between">
 				<span>{account.name}</span>
 				<span>{account.balance}:-</span>
+					<a href={`/accounts/edit/${account.id}`} class="rounded bg-yellow-500 p-2 text-white">Edit</a>
 				<form method="POST" action="?/deleteAccount" use:enhance>
 					<input type="hidden" name="id" value={account.id} />
 					<button type="submit" class="rounded bg-red-500 p-2 text-white">Delete</button>
