@@ -5,13 +5,13 @@
 </script>
 
 {#if isVisible}
-  <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
-    <div class="bg-white p-6 rounded shadow-md">
+  <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white p-6 rounded shadow-lg">
       <h2 class="text-xl font-bold mb-4">Confirm Deletion</h2>
       <p class="mb-4">Are you sure you want to delete this account? This action cannot be undone and will delete all related expenses.</p>
-      <div class="flex justify-end">
-        <button on:click={onCancel} class="mr-2 rounded bg-gray-500 px-4 py-2 text-white">Cancel</button>
-        <button on:click={onProceed} class="rounded bg-red-500 px-4 py-2 text-white">Delete</button>
+      <div class="flex justify-end space-x-4">
+        <button on:click={onCancel} class="px-4 py-2 bg-gray-500 text-white rounded">Cancel</button>
+        <button on:click={onProceed} class="px-4 py-2 bg-red-500 text-white rounded">Delete</button>
       </div>
     </div>
   </div>
@@ -36,14 +36,14 @@
   .justify-center {
     justify-content: center;
   }
-  .bg-gray-800 {
-    background-color: #2d3748;
+  .bg-black {
+    background-color: black;
   }
-  .bg-opacity-75 {
-    background-opacity: 0.75;
+  .bg-opacity-50 {
+    background-opacity: 0.5;
   }
   .bg-white {
-    background-color: #ffffff;
+    background-color: white;
   }
   .p-6 {
     padding: 1.5rem;
@@ -51,8 +51,8 @@
   .rounded {
     border-radius: 0.375rem;
   }
-  .shadow-md {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  .shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
   .text-xl {
     font-size: 1.25rem;
@@ -66,11 +66,8 @@
   .justify-end {
     justify-content: flex-end;
   }
-  .mr-2 {
-    margin-right: 0.5rem;
-  }
-  .bg-gray-500 {
-    background-color: #6b7280;
+  .space-x-4 > :not(:last-child) {
+    margin-right: 1rem;
   }
   .px-4 {
     padding-left: 1rem;
@@ -80,8 +77,11 @@
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
+  .bg-gray-500 {
+    background-color: #6b7280;
+  }
   .text-white {
-    color: #ffffff;
+    color: white;
   }
   .bg-red-500 {
     background-color: #ef4444;
