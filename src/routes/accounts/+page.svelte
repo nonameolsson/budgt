@@ -1,6 +1,35 @@
 <script lang="ts">
 	let { data } = $props();
 	import { enhance } from '$app/forms';
+	import ConfirmModal from '$lib/components/ConfirmModal.svelte';
+
+	let isModalVisible = false;
+	let selectedAccountId: string | null = null;
+
+	function showModal(accountId: string) {
+		selectedAccountId = accountId;
+		isModalVisible = true;
+	}
+
+	function hideModal() {
+		selectedAccountId = null;
+		isModalVisible = false;
+	}
+
+	async function proceedDelete() {
+		if (selectedAccountId) {
+			const formData = new FormData();
+			formData.append('id', selectedAccountId);
+
+			await fetch('?/deleteAccount', {
+				method: 'POST',
+				body: formData
+			});
+
+			hideModal();
+			location.reload();
+		}
+	}
 </script>
 
 <div class="container mx-auto p-4">
@@ -13,14 +42,19 @@
 			<li class="mb-2 flex justify-between">
 				<span>{account.name}</span>
 				<span>{account.balance}:-</span>
-				<form method="POST" action="?/deleteAccount" use:enhance>
-					<input type="hidden" name="id" value={account.id} />
-					<button type="submit" class="rounded bg-red-500 p-2 text-white">Delete</button>
-				</form>
+				<button on:click={() => showModal(account.id)} class="rounded bg-red-500 p-2 text-white">
+					Delete
+				</button>
 			</li>
 		{/each}
 	</ul>
 </div>
+
+<ConfirmModal
+	isVisible={isModalVisible}
+	onProceed={proceedDelete}
+	onCancel={hideModal}
+/>
 
 <style>
 </style>

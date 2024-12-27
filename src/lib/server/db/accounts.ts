@@ -2,6 +2,7 @@ import { Value } from '@sinclair/typebox/value';
 import { eq } from 'drizzle-orm';
 import { db } from '.';
 import { accountInsertSchema, accounts, type InsertAccount } from './schema';
+import { expenses } from './schema';
 
 export async function createAccount(data: InsertAccount) {
 	const parsed = Value.Parse(accountInsertSchema, data);
@@ -14,5 +15,6 @@ export async function getAccounts() {
 }
 
 export async function deleteAccount(id: string) {
+	await db.delete(expenses).where(eq(expenses.accountId, id));
 	return await db.delete(accounts).where(eq(accounts.id, id));
 }
