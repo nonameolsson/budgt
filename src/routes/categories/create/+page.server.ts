@@ -1,8 +1,7 @@
 import { db } from '$lib/server/db';
-import type { InsertCategory } from '$lib/server/db/categories';
-import { categories } from '$lib/server/db/schema';
-import type { Actions } from './$types';
+import { categories, type InsertCategory } from '$lib/server/db/schema';
 import { redirect } from '@sveltejs/kit';
+import type { Actions } from './$types';
 
 export const actions: Actions = {
 	createCategory: async ({ request }) => {

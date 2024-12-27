@@ -1,9 +1,5 @@
-import {
-	createExpense,
-	deleteExpense,
-	getExpenses,
-	type InsertExpense
-} from '$lib/server/db/expenses';
+import { createExpense, deleteExpense, getExpenses } from '$lib/server/db/expenses';
+import type { InsertExpense } from '$lib/server/db/schema';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
@@ -24,9 +20,13 @@ export const actions: Actions = {
 		const date = data.get('date');
 		if (date === null) return;
 
+		const accountId = data.get('accountId');
+		if (accountId === null) return;
+
 		const newExpense: InsertExpense = {
 			amount: Number(amount),
 			description: description.toString(),
+			accountId: accountId.toString(),
 			date: date.toString()
 		};
 
