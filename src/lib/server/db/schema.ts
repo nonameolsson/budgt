@@ -1,7 +1,7 @@
 import { createId } from '@paralleldrive/cuid2';
 import { relations } from 'drizzle-orm';
 import { real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { createInsertSchema } from 'drizzle-typebox';
+import { createInsertSchema, createSelectSchema, createUpdateSchema } from 'drizzle-typebox';
 
 // ACCOUNTS
 export const accounts = sqliteTable('accounts', {
@@ -14,6 +14,8 @@ export const accounts = sqliteTable('accounts', {
 });
 
 export const accountInsertSchema = createInsertSchema(accounts);
+export const accountSelectSchema = createSelectSchema(accounts);
+export const accountUpdateSchema = createUpdateSchema(accounts);
 
 export type InsertAccount = typeof accounts.$inferInsert;
 export type SelectAccount = typeof accounts.$inferSelect;
