@@ -1,9 +1,5 @@
-import {
-	createCategory,
-	deleteCategory,
-	getCategories,
-	type InsertCategory
-} from '$lib/server/db/categories';
+import { createCategory, deleteCategory, getCategories } from '$lib/server/db/categories';
+import type { InsertCategory } from '$lib/server/db/schema';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {

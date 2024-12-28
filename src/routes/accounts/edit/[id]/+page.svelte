@@ -16,7 +16,7 @@
 			required
 			name="name"
 			placeholder="Account Name"
-			value={data.account.name}
+			value={data.account?.name}
 			class="w-full rounded border border-gray-300 p-2"
 		/>
 		<input
@@ -24,7 +24,7 @@
 			required
 			name="balance"
 			placeholder="Balance"
-			value={data.account.balance}
+			value={data.account?.balance}
 			class="w-full rounded border border-gray-300 p-2"
 		/>
 		<div class="flex justify-between">
