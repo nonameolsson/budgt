@@ -10,7 +10,15 @@ export const accounts = sqliteTable('accounts', {
 		.notNull()
 		.primaryKey(),
 	name: text('name').notNull(),
-	balance: real('balance').notNull()
+	balance: real('balance').notNull(),
+	createdAt: text('created_at')
+		.notNull()
+		.$defaultFn(() => new Date().toISOString())
+		.$onUpdateFn(() => new Date().toISOString()),
+	updatedAt: text('updated_at')
+		.notNull()
+		.default(new Date().toISOString())
+		.$onUpdateFn(() => new Date().toISOString())
 });
 
 export const accountInsertSchema = createInsertSchema(accounts);
@@ -31,7 +39,15 @@ export const categories = sqliteTable('categories', {
 		.$defaultFn(() => createId())
 		.notNull()
 		.primaryKey(),
-	name: text('name').notNull()
+	name: text('name').notNull(),
+	createdAt: text('created_at')
+		.notNull()
+		.default(new Date().toISOString())
+		.$onUpdateFn(() => new Date().toISOString()),
+	updatedAt: text('updated_at')
+		.notNull()
+		.default(new Date().toISOString())
+		.$onUpdateFn(() => new Date().toISOString())
 });
 
 export type InsertCategory = typeof categories.$inferInsert;
@@ -48,8 +64,13 @@ export const expenses = sqliteTable('expenses', {
 	description: text('description'),
 	date: text('date').notNull(),
 	createdAt: text('created_at')
-		.$defaultFn(() => new Date().toISOString())
-		.notNull(),
+		.notNull()
+		.default(new Date().toISOString())
+		.$onUpdateFn(() => new Date().toISOString()),
+	updatedAt: text('updated_at')
+		.notNull()
+		.default(new Date().toISOString())
+		.$onUpdateFn(() => new Date().toISOString()),
 	accountId: text('accountId').notNull()
 });
 
