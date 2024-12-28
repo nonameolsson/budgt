@@ -1,6 +1,19 @@
 <script lang="ts">
+	import ConfirmModal from '$lib/components/ConfirmModal.svelte';
+
 	let { data } = $props();
-	import { enhance } from '$app/forms';
+	let isModalVisible = $state(false);
+	let selectedAccountId: string | null = $state(null);
+
+	function showDeleteModal(accountId: string) {
+		selectedAccountId = accountId;
+		isModalVisible = true;
+	}
+
+	function handleCancel() {
+		isModalVisible = false;
+		selectedAccountId = null;
+	}
 </script>
 
 <div class="container mx-auto p-4">
@@ -13,14 +26,13 @@
 			<li class="mb-2 flex justify-between">
 				<span>{account.name}</span>
 				<span>{account.balance}:-</span>
-				<form method="POST" action="?/deleteAccount" use:enhance>
-					<input type="hidden" name="id" value={account.id} />
-					<button type="submit" class="rounded bg-red-500 p-2 text-white">Delete</button>
-				</form>
+				<button
+					onclick={() => showDeleteModal(account.id)}
+					class="rounded bg-red-500 p-2 text-white">Delete</button
+				>
 			</li>
 		{/each}
 	</ul>
 </div>
 
-<style>
-</style>
+<ConfirmModal visible={isModalVisible} id={selectedAccountId} onCancel={handleCancel} />
