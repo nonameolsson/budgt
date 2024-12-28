@@ -1,36 +1,30 @@
 import { db } from '$lib/server/db';
 import { createExpense } from '$lib/server/db/expenses';
-import type { InsertExpense } from '$lib/server/db/schema';
-import { redirect } from '@sveltejs/kit';
+import { expenseInsertSchema, type InsertExpense } from '$lib/server/db/schema';
+import { redirect, fail } from '@sveltejs/kit';
+import { superValidate } from 'sveltekit-superforms';
+import { typebox } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	const accounts = await db.query.accounts.findMany();
-	return { accounts };
+	const form = await superValidate(typebox(expenseInsertSchema), { errors: true });
+	return { accounts, form };
 };
 
 export const actions: Actions = {
 	createExpense: async ({ request }) => {
-		// TODO: Use superforms
-		const data = await request.formData();
+		const form = await superValidate(request, typebox(expenseInsertSchema));
 
-		const amount = data.get('amount');
-		if (amount === null) return;
-
-		const description = data.get('description');
-		if (description === null) return;
-
-		const date = data.get('date');
-		if (date === null) return;
-
-		const accountId = data.get('accountId');
-		if (accountId === null) return;
+		if (!form.valid) {
+			return fail(400, { form });
+		}
 
 		const newExpense: InsertExpense = {
-			amount: Number(amount),
-			description: description.toString(),
-			date: date.toString(),
-			accountId: accountId.toString()
+			amount: form.data.amount,
+			description: form.data.description,
+			date: form.data.date,
+			accountId: form.data.accountId
 		};
 
 		await createExpense(newExpense);

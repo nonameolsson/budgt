@@ -1,32 +1,30 @@
-import { getAccounts, updateAccount } from '$lib/server/db/accounts';
+import { superValidate } from 'sveltekit-superforms';
 import { fail, redirect } from '@sveltejs/kit';
+import { getAccount, updateAccount } from '$lib/server/db/accounts';
+import { accountInsertSchema, type InsertAccount } from '$lib/server/db/schema';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
-	const accounts = await getAccounts();
-	const account = accounts.find((acc) => acc.id === params.id);
+	const account = await getAccount(params.id);
+	const form = await superValidate(account[0], accountInsertSchema);
 
-	if (!account) {
-		return fail(404);
-	}
-
-	return { account };
+	return { form };
 };
 
 export const actions: Actions = {
 	updateAccount: async ({ request, params }) => {
-		const data = await request.formData();
-		const name = data.get('name');
-		const balance = data.get('balance');
+		const form = await superValidate(request, accountInsertSchema);
 
-		if (!name || !balance) {
-			return fail(400);
+		if (!form.valid) {
+			return fail(400, { form });
 		}
 
-		await updateAccount(params.id, {
-			name: name.toString(),
-			balance: Number(balance)
-		});
+		const updatedAccount: Partial<InsertAccount> = {
+			name: form.data.name,
+			balance: form.data.balance
+		};
+
+		await updateAccount(params.id, updatedAccount);
 
 		redirect(303, '/accounts');
 	}
