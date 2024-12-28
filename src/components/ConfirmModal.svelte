@@ -42,9 +42,6 @@
 	.bg-black {
 		background-color: black;
 	}
-	.bg-opacity-50 {
-		background-opacity: 0.5;
-	}
 	.bg-white {
 		background-color: white;
 	}
