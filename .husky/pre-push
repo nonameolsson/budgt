@@ -1,2 +1,2 @@
 pnpm dlx npm-run-all --parallel check
-pnpm dependencies
+pnpm dlx npm-run-all --parallel check lint dependencies:outdated dependencies:unused
