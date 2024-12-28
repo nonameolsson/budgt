@@ -1,5 +1,5 @@
 import { createAccount } from '$lib/server/db/accounts';
-import { accountInsertSchema, type InsertAccount } from '$lib/server/db/schema';
+import { accountInsertSchema, type InsertAccount } from '$lib/server/db/schema/accounts';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { typebox } from 'sveltekit-superforms/adapters';

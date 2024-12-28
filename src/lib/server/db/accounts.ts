@@ -1,7 +1,8 @@
 import { Value } from '@sinclair/typebox/value';
 import { eq } from 'drizzle-orm';
 import { db } from '.';
-import { accountInsertSchema, accounts, expenses, type InsertAccount } from './schema';
+import { accountInsertSchema, accounts, type InsertAccount } from './schema/accounts';
+import { expenses } from './schema/expenses';
 
 export async function createAccount(data: InsertAccount) {
 	const parsed = Value.Parse(accountInsertSchema, data);

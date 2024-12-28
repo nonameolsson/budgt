@@ -1,6 +1,6 @@
 import { db } from '$lib/server/db';
 import { createExpense } from '$lib/server/db/expenses';
-import type { InsertExpense } from '$lib/server/db/schema';
+import type { InsertExpense } from '$lib/server/db/schema/expenses';
 import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
