@@ -36,8 +36,8 @@ importers:
         specifier: ^0.38.2
         version: 0.38.2(@libsql/client@0.14.0)
       drizzle-typebox:
-        specifier: ^0.2.0
-        version: 0.2.0(@sinclair/typebox@0.34.13)(drizzle-orm@0.38.2(@libsql/client@0.14.0))
+        specifier: ^0.2.1
+        version: 0.2.1(@sinclair/typebox@0.34.13)(drizzle-orm@0.38.2(@libsql/client@0.14.0))
       eslint-plugin-drizzle:
         specifier: ^0.2.3
         version: 0.2.3(eslint@9.17.0(jiti@1.21.7))
@@ -1377,8 +1377,8 @@ packages:
       sqlite3:
         optional: true
 
-  drizzle-typebox@0.2.0:
-    resolution: {integrity: sha512-MvFeZubRlPdocd84/fA9meCkEvrHLCv1+4CNql9C4NeY9n1ITaDngs61kcvkRaFlt26bFMzv1XHZij8yd3J31w==}
+  drizzle-typebox@0.2.1:
+    resolution: {integrity: sha512-DQgApZC+qliE6PFQj496BNv+k3B3Y25Z27ZDYA/drHvF9ta4M3bqrhv2WuGePbq662KTVIsb/UL5GT57hJhYdA==}
     peerDependencies:
       '@sinclair/typebox': '>=0.34.8'
       drizzle-orm: '>=0.36.0'
@@ -1728,6 +1728,7 @@ packages:
 
   libsql@0.4.7:
     resolution: {integrity: sha512-T9eIRCs6b0J1SHKYIvD8+KCJMcWZ900iZyxdnSCdqxN12Z1ijzT+jY5nrk72Jw4B0HGzms2NgpryArlJqvc3Lw==}
+    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lilconfig@2.1.0:
@@ -3292,7 +3293,7 @@ snapshots:
     optionalDependencies:
       '@libsql/client': 0.14.0
 
-  drizzle-typebox@0.2.0(@sinclair/typebox@0.34.13)(drizzle-orm@0.38.2(@libsql/client@0.14.0)):
+  drizzle-typebox@0.2.1(@sinclair/typebox@0.34.13)(drizzle-orm@0.38.2(@libsql/client@0.14.0)):
     dependencies:
       '@sinclair/typebox': 0.34.13
       drizzle-orm: 0.38.2(@libsql/client@0.14.0)
