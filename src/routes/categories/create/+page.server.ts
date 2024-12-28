@@ -15,6 +15,6 @@ export const actions: Actions = {
 		};
 
 		await db.insert(categories).values(newCategory);
-		throw redirect(303, '/categories');
+		redirect(303, '/categories');
 	}
 };

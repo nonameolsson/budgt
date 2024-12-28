@@ -4,7 +4,6 @@
 	let { data } = $props();
 	let isModalVisible = $state(false);
 	let selectedAccountId: string | null = $state(null);
-
 	function showDeleteModal(accountId: string) {
 		selectedAccountId = accountId;
 		isModalVisible = true;

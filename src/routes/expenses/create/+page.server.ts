@@ -34,6 +34,6 @@ export const actions: Actions = {
 		};
 
 		await createExpense(newExpense);
-		throw redirect(303, '/expenses');
+		redirect(303, '/expenses');
 	}
 };
