@@ -47,3 +47,10 @@ You can use DevContainers to create a consistent development environment. Follow
 4. Select the project folder.
 
 This will open the project in a DevContainer with all the necessary dependencies and tools pre-installed.
+
+## Documentation
+
+For more information on best practices and business logic for the budgeting app, refer to the following documents:
+
+- [MVP Features](docs/MVP_Features.md)
+- [Business Logic](docs/Business_Logic.md)
