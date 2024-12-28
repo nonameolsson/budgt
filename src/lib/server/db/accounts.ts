@@ -13,6 +13,10 @@ export async function getAccounts() {
 	return await db.query.accounts.findMany();
 }
 
+export async function getAccount(id: string) {
+	return await db.select().from(accounts).where(eq(accounts.id, id));
+}
+
 export async function deleteAccount(id: string) {
 	await db.delete(expenses).where(eq(expenses.accountId, id));
 	return await db.delete(accounts).where(eq(accounts.id, id));
