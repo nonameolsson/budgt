@@ -1,34 +1,18 @@
 <script lang="ts">
-	let { data } = $props();
-	import { enhance } from '$app/forms';
 	import ConfirmModal from '$lib/components/ConfirmModal.svelte';
 
-	let isModalVisible = false;
-	let selectedAccountId: string | null = null;
+	let { data } = $props();
+	let isModalVisible = $state(false);
+	let selectedAccountId: string | null = $state(null);
 
-	function showModal(accountId: string) {
+	function showDeleteModal(accountId: string) {
 		selectedAccountId = accountId;
 		isModalVisible = true;
 	}
 
-	function hideModal() {
-		selectedAccountId = null;
+	function handleCancel() {
 		isModalVisible = false;
-	}
-
-	async function proceedDelete() {
-		if (selectedAccountId) {
-			const formData = new FormData();
-			formData.append('id', selectedAccountId);
-
-			await fetch('?/deleteAccount', {
-				method: 'POST',
-				body: formData
-			});
-
-			hideModal();
-			location.reload();
-		}
+		selectedAccountId = null;
 	}
 </script>
 
@@ -42,19 +26,13 @@
 			<li class="mb-2 flex justify-between">
 				<span>{account.name}</span>
 				<span>{account.balance}:-</span>
-				<button on:click={() => showModal(account.id)} class="rounded bg-red-500 p-2 text-white">
-					Delete
-				</button>
+				<button
+					onclick={() => showDeleteModal(account.id)}
+					class="rounded bg-red-500 p-2 text-white">Delete</button
+				>
 			</li>
 		{/each}
 	</ul>
 </div>
 
-<ConfirmModal
-	isVisible={isModalVisible}
-	onProceed={proceedDelete}
-	onCancel={hideModal}
-/>
-
-<style>
-</style>
+<ConfirmModal visible={isModalVisible} id={selectedAccountId} onCancel={handleCancel} />
