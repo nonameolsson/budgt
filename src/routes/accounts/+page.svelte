@@ -26,6 +26,9 @@
 			<li class="mb-2 flex justify-between">
 				<span>{account.name}</span>
 				<span>{account.balance}:-</span>
+				<a href={`/accounts/edit/${account.id}`} class="rounded bg-yellow-500 p-2 text-white">
+					Edit
+				</a>
 				<button
 					onclick={() => showDeleteModal(account.id)}
 					class="rounded bg-red-500 p-2 text-white">Delete</button

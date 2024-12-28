@@ -17,3 +17,7 @@ export async function deleteAccount(id: string) {
 	await db.delete(expenses).where(eq(expenses.accountId, id));
 	return await db.delete(accounts).where(eq(accounts.id, id));
 }
+
+export async function updateAccount(id: string, data: Partial<InsertAccount>) {
+	return await db.update(accounts).set(data).where(eq(accounts.id, id));
+}
