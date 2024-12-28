@@ -48,7 +48,7 @@
 		"@tailwindcss/typography": "^0.5.15",
 		"@typescript-eslint/eslint-plugin": "^8.18.2",
 		"@typescript-eslint/parser": "^8.18.2",
-		"drizzle-orm": "^0.38.2",
+		"drizzle-orm": "^0.38.3",
 		"drizzle-typebox": "^0.2.0",
 		"eslint-plugin-drizzle": "^0.2.3"
 	}
