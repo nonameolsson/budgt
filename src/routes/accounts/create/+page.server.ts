@@ -1,5 +1,5 @@
 import { createAccount } from '$lib/server/db/accounts';
-import type { InsertAccount } from '$lib/server/db/schema';
+import type { InsertAccount } from '$lib/server/db/schema/accounts';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 

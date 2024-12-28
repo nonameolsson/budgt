@@ -1,5 +1,5 @@
 import { createExpense, deleteExpense, getExpenses } from '$lib/server/db/expenses';
-import type { InsertExpense } from '$lib/server/db/schema';
+import type { InsertExpense } from '$lib/server/db/schema/expenses';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {

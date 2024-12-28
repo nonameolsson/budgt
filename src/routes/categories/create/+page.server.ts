@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db';
-import { categories, type InsertCategory } from '$lib/server/db/schema';
+import { categories, type InsertCategory } from '$lib/server/db/schema/categories';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
