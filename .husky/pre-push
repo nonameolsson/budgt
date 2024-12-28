@@ -1,0 +1,2 @@
+pnpm dlx npm-run-all --parallel check
+pnpm dependencies

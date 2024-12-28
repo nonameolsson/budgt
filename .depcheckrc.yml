@@ -1,0 +1,17 @@
+ignores:
+  # Our Svelte packages
+  - $app
+  - $env
+  - $lib
+
+  # Svelte stuff
+  - autoprefixer
+  - prettier-plugin-svelte
+  - prettier-plugin-tailwindcss
+
+  # Our own development stuff
+  - lint-staged
+  - npm-check-updates
+  - '@eslint/js'
+  - '@typescript-eslint/eslint-plugin'
+  - '@typescript-eslint/parser'
