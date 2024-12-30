@@ -13,6 +13,16 @@
 		isModalVisible = false;
 		selectedAccountId = null;
 	}
+
+	async function handleSetPrimary(accountId: string) {
+		const formData = new FormData();
+		formData.append('id', accountId);
+
+		await fetch('/accounts/setPrimaryAccount', {
+			method: 'POST',
+			body: formData
+		});
+	}
 </script>
 
 <div class="container mx-auto p-4">
@@ -31,6 +41,10 @@
 				<button
 					onclick={() => showDeleteModal(account.id)}
 					class="rounded bg-red-500 p-2 text-white">Delete</button
+				>
+				<button
+					onclick={() => handleSetPrimary(account.id)}
+					class="rounded bg-green-500 p-2 text-white">Set as Primary</button
 				>
 			</li>
 		{/each}
