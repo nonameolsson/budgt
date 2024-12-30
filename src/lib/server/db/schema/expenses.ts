@@ -4,6 +4,7 @@ import { relations } from 'drizzle-orm';
 import { real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema } from 'drizzle-typebox';
 import { accounts } from './accounts';
+import { categories } from './categories';
 
 export const expenses = sqliteTable('expenses', {
 	id: text()
@@ -21,7 +22,8 @@ export const expenses = sqliteTable('expenses', {
 		.notNull()
 		.default(new Date().toISOString())
 		.$onUpdateFn(() => new Date().toISOString()),
-	accountId: text('accountId').notNull()
+	accountId: text('accountId').notNull(),
+	categoryId: text('categoryId').notNull()
 });
 
 export const insertExpenseSchema = createInsertSchema(expenses);
@@ -37,5 +39,9 @@ export const expensesRelations = relations(expenses, ({ one }) => ({
 	account: one(accounts, {
 		fields: [expenses.accountId],
 		references: [accounts.id]
+	}),
+	category: one(categories, {
+		fields: [expenses.categoryId],
+		references: [categories.id]
 	})
 }));

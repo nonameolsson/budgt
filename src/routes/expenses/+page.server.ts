@@ -23,11 +23,15 @@ export const actions: Actions = {
 		const accountId = data.get('accountId');
 		if (accountId === null) return;
 
+		const categoryId = data.get('categoryId');
+		if (categoryId === null) return;
+
 		const newExpense: InsertExpenseSchema = {
 			amount: Number(amount),
 			description: description.toString(),
 			accountId: accountId.toString(),
-			date: date.toString()
+			date: date.toString(),
+			categoryId: categoryId.toString()
 		};
 
 		await createExpense(newExpense);
