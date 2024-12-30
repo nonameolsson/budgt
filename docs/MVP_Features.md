@@ -23,6 +23,7 @@
 - As a user, I want to create an account with a name and initial balance so that I can track my finances.
 - As a user, I want to view a list of all my accounts so that I can see my financial overview.
 - As a user, I want to delete an account so that I can remove accounts I no longer use.
+- As a user, I want to set an account as the primary account so that I can easily identify my main account.
 
 ## Managing Categories
 

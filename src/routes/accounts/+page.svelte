@@ -25,6 +25,9 @@
 			<li class="mb-2 flex justify-between">
 				<span>{account.name}</span>
 				<span>{account.balance}:-</span>
+				{#if account.is_primary}
+					<span class="text-green-500">Primary</span>
+				{/if}
 				<a href={`/accounts/edit/${account.id}`} class="rounded bg-yellow-500 p-2 text-white">
 					Edit
 				</a>

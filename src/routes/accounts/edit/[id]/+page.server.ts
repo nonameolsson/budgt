@@ -34,7 +34,8 @@ export const actions: Actions = {
 
 		const data: UpdateAccountSchema = {
 			name: form.data.name,
-			balance: form.data.balance
+			balance: form.data.balance,
+			is_primary: form.data.is_primary
 		};
 		await updateAccount(params.id, data);
 

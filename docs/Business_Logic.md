@@ -62,11 +62,12 @@
 
 - Validate that the account name is unique.
 - Ensure that the initial balance is a positive number.
+- Ensure that only one account can be set as the primary account at a time.
 
 ### Database Modeling
 
 - Table: `accounts`
-  - Columns: `id`, `name`, `balance`, `created_at`, `updated_at`
+  - Columns: `id`, `name`, `balance`, `created_at`, `updated_at`, `is_primary`
 
 ### Example Queries
 
@@ -79,6 +80,11 @@
   DELETE FROM accounts WHERE id = ?;
   DELETE FROM expenses WHERE accountId = ?;
   DELETE FROM income WHERE accountId = ?;
+  ```
+- Set Primary Account:
+  ```sql
+  UPDATE accounts SET is_primary = 0 WHERE is_primary = 1;
+  UPDATE accounts SET is_primary = 1 WHERE id = ?;
   ```
 
 ## Managing Categories

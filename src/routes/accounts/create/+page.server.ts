@@ -21,7 +21,8 @@ export const actions: Actions = {
 
 		const newAccount: InsertAccountSchema = {
 			name: form.data.name,
-			balance: form.data.balance
+			balance: form.data.balance,
+			is_primary: form.data.is_primary
 		};
 
 		await createAccount(newAccount);

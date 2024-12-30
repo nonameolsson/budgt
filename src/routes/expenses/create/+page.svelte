@@ -35,9 +35,13 @@
 			value={getCurrentDate()}
 		/>
 		<select name="accountId" required class="w-full rounded border border-gray-300 p-2">
-			<option value="" disabled selected>Select Account</option>
-			{#each data.accounts as { id, name }}
-				<option value={id}>{name}</option>
+			{#if data.accounts.length === 0}
+				<option value="" disabled selected>No Accounts</option>
+			{:else if !data.accounts.some((account) => account.is_primary)}
+				<option value="" disabled selected>Select Account</option>
+			{/if}
+			{#each data.accounts as { id, is_primary, name }}
+				<option selected={is_primary} value={id}>{name}</option>
 			{/each}
 		</select>
 		<select name="categoryId" required class="w-full rounded border border-gray-300 p-2">
