@@ -3,7 +3,7 @@ import type { Static } from '@sinclair/typebox';
 import { sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema } from 'drizzle-typebox';
 
-export const categories = sqliteTable('categories', {
+export const categoriesTable = sqliteTable('categories', {
 	id: text()
 		.$defaultFn(() => createId())
 		.notNull()
@@ -19,11 +19,11 @@ export const categories = sqliteTable('categories', {
 		.$onUpdateFn(() => new Date().toISOString())
 });
 
-export const insertCategorySchema = createInsertSchema(categories);
-export type InsertCategorySchema = Static<typeof insertCategorySchema>;
+export const insertCategorySchema = createInsertSchema(categoriesTable);
+export type InsertCategory = Static<typeof insertCategorySchema>;
 
-export const selectCategorySchema = createInsertSchema(categories);
-export type SelectCategorySchema = Static<typeof selectCategorySchema>;
+export const selectCategorySchema = createInsertSchema(categoriesTable);
+export type SelectCategory = Static<typeof selectCategorySchema>;
 
-export const updateCategorySchema = createInsertSchema(categories);
-export type UpdateCategorySchema = Static<typeof updateCategorySchema>;
+export const updateCategorySchema = createInsertSchema(categoriesTable);
+export type UpdateCategory = Static<typeof updateCategorySchema>;

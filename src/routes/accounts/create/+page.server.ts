@@ -1,5 +1,5 @@
 import { createAccount } from '$lib/server/db/accounts';
-import { insertAccountSchema, type InsertAccountSchema } from '$lib/server/db/schema/accounts';
+import { insertAccountSchema, type InsertAccount } from '$lib/server/db/schema/accounts';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { typebox } from 'sveltekit-superforms/adapters';
@@ -19,7 +19,7 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 
-		const newAccount: InsertAccountSchema = {
+		const newAccount: InsertAccount = {
 			name: form.data.name,
 			balance: form.data.balance,
 			is_primary: form.data.is_primary

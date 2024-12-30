@@ -3,10 +3,10 @@ import type { Static } from '@sinclair/typebox';
 import { relations } from 'drizzle-orm';
 import { real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema } from 'drizzle-typebox';
-import { accounts } from './accounts';
-import { categories } from './categories';
+import { accountsTable } from './accounts';
+import { categoriesTable } from './categories';
 
-export const expenses = sqliteTable('expenses', {
+export const expensesTable = sqliteTable('expenses', {
 	id: text()
 		.$defaultFn(() => createId())
 		.primaryKey()
@@ -26,22 +26,22 @@ export const expenses = sqliteTable('expenses', {
 	categoryId: text('categoryId').notNull()
 });
 
-export const insertExpenseSchema = createInsertSchema(expenses);
-export type InsertExpenseSchema = Static<typeof insertExpenseSchema>;
+export const insertExpenseSchema = createInsertSchema(expensesTable);
+export type InsertExpense = Static<typeof insertExpenseSchema>;
 
-export const selectExpenseSchema = createInsertSchema(expenses);
-export type SelectExpenseSchema = Static<typeof selectExpenseSchema>;
+export const selectExpenseSchema = createInsertSchema(expensesTable);
+export type SelectExpense = Static<typeof selectExpenseSchema>;
 
-export const updateExpenseSchema = createInsertSchema(expenses);
-export type UpdateExpenseSchema = Static<typeof updateExpenseSchema>;
+export const updateExpenseSchema = createInsertSchema(expensesTable);
+export type UpdateExpense = Static<typeof updateExpenseSchema>;
 
-export const expensesRelations = relations(expenses, ({ one }) => ({
-	account: one(accounts, {
-		fields: [expenses.accountId],
-		references: [accounts.id]
+export const expensesRelations = relations(expensesTable, ({ one }) => ({
+	account: one(accountsTable, {
+		fields: [expensesTable.accountId],
+		references: [accountsTable.id]
 	}),
-	category: one(categories, {
-		fields: [expenses.categoryId],
-		references: [categories.id]
+	category: one(categoriesTable, {
+		fields: [expensesTable.categoryId],
+		references: [categoriesTable.id]
 	})
 }));
