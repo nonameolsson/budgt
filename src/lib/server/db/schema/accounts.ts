@@ -3,14 +3,14 @@ import type { Static } from '@sinclair/typebox';
 import { relations } from 'drizzle-orm';
 import { integer, real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema, createSelectSchema, createUpdateSchema } from 'drizzle-typebox';
-import { expensesTable } from './expenses';
+import { expenses } from './expenses';
 
-export const accountsTable = sqliteTable('accounts', {
+export const accounts = sqliteTable('accounts', {
 	id: text()
 		.$defaultFn(() => createId())
 		.notNull()
 		.primaryKey(),
-	name: text('name').notNull(), // TODO: Make unique
+	name: text('name').notNull(),
 	balance: real('balance').notNull(),
 	createdAt: text('created_at')
 		.notNull()
@@ -23,15 +23,15 @@ export const accountsTable = sqliteTable('accounts', {
 	is_primary: integer({ mode: 'boolean' }).notNull().default(false)
 });
 
-export const insertAccountSchema = createInsertSchema(accountsTable);
+export const insertAccountSchema = createInsertSchema(accounts);
 export type InsertAccount = Static<typeof insertAccountSchema>;
 
-export const selectAccountSchema = createSelectSchema(accountsTable);
+export const selectAccountSchema = createSelectSchema(accounts);
 export type SelectAccount = Static<typeof selectAccountSchema>;
 
-export const updateAccountSchema = createUpdateSchema(accountsTable);
+export const updateAccountSchema = createUpdateSchema(accounts);
 export type UpdateAccount = Static<typeof updateAccountSchema>;
 
-export const accountsRelations = relations(accountsTable, ({ many }) => ({
-	expenses: many(expensesTable)
+export const accountsRelations = relations(accounts, ({ many }) => ({
+	expenses: many(expenses)
 }));

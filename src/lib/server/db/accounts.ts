@@ -2,18 +2,18 @@ import { Value } from '@sinclair/typebox/value';
 import { eq } from 'drizzle-orm';
 import { db } from '.';
 import {
-	accountsTable,
+	accounts,
 	insertAccountSchema,
 	type InsertAccount,
 	type UpdateAccount
 } from './schema/accounts';
-import { expensesTable } from './schema/expenses';
+import { expenses } from './schema/expenses';
 
 export async function createAccount(data: InsertAccount) {
 	const parsed = Value.Parse(insertAccountSchema, data);
 
 	const existingPrimaryAccount = await db.query.accounts.findFirst({
-		where: eq(accountsTable.is_primary, true)
+		where: eq(accounts.is_primary, true)
 	});
 
 	if (!existingPrimaryAccount) {
@@ -21,13 +21,10 @@ export async function createAccount(data: InsertAccount) {
 	}
 
 	if (parsed.is_primary) {
-		await db
-			.update(accountsTable)
-			.set({ is_primary: false })
-			.where(eq(accountsTable.is_primary, true));
+		await db.update(accounts).set({ is_primary: false }).where(eq(accounts.is_primary, true));
 	}
 
-	return await db.insert(accountsTable).values(parsed);
+	return await db.insert(accounts).values(parsed);
 }
 
 export async function getAccounts() {
@@ -35,33 +32,27 @@ export async function getAccounts() {
 }
 
 export async function getAccount(id: string) {
-	return await db.query.accounts.findFirst({ where: eq(accountsTable.id, id) });
+	return await db.query.accounts.findFirst({ where: eq(accounts.id, id) });
 }
 
 export async function deleteAccount(id: string) {
-	const accountToDelete = await db.query.accounts.findFirst({ where: eq(accountsTable.id, id) });
+	const accountToDelete = await db.query.accounts.findFirst({ where: eq(accounts.id, id) });
 
 	if (accountToDelete?.is_primary) {
 		const otherAccount = await db.query.accounts.findFirst({
-			where: eq(accountsTable.is_primary, false)
+			where: eq(accounts.is_primary, false)
 		});
 
 		if (otherAccount) {
-			await db
-				.update(accountsTable)
-				.set({ is_primary: true })
-				.where(eq(accountsTable.id, otherAccount.id));
+			await db.update(accounts).set({ is_primary: true }).where(eq(accounts.id, otherAccount.id));
 		}
 	}
 
-	await db.delete(expensesTable).where(eq(expensesTable.accountId, id));
-	return await db.delete(accountsTable).where(eq(accountsTable.id, id));
+	await db.delete(expenses).where(eq(expenses.accountId, id));
+	return await db.delete(accounts).where(eq(accounts.id, id));
 }
 
 export async function updateAccount(id: string, data: UpdateAccount) {
-	await db
-		.update(accountsTable)
-		.set({ is_primary: false })
-		.where(eq(accountsTable.is_primary, true));
-	return await db.update(accountsTable).set(data).where(eq(accountsTable.id, id));
+	await db.update(accounts).set({ is_primary: false }).where(eq(accounts.is_primary, true));
+	return await db.update(accounts).set(data).where(eq(accounts.id, id));
 }

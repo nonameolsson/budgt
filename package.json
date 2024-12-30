@@ -16,6 +16,7 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"db:push": "drizzle-kit push",
+		"db:pull": "drizzle-kit pull",
 		"db:migrate": "drizzle-kit migrate",
 		"db:check": "drizzle-kit check",
 		"db:studio": "drizzle-kit studio",

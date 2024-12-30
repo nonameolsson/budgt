@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db';
-import { categoriesTable, type InsertCategory } from '$lib/server/db/schema/categories';
+import { categories, type InsertCategory } from '$lib/server/db/schema/categories';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
@@ -14,7 +14,7 @@ export const actions: Actions = {
 			name: name.toString()
 		};
 
-		await db.insert(categoriesTable).values(newCategory);
+		await db.insert(categories).values(newCategory);
 		redirect(303, '/categories');
 	}
 };
