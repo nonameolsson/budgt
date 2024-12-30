@@ -32,3 +32,11 @@
 - As a user, I want to create a category with a name so that I can organize my expenses and income.
 - As a user, I want to view a list of all my categories so that I can see how my finances are organized.
 - As a user, I want to delete a category so that I can remove categories I no longer use.
+
+## User Management
+
+### User Stories
+
+- As a user, I want to sign up with a username, email, and password so that I can create an account.
+- As a user, I want to log in with my username and password so that I can access my account.
+- As a user, I want to log out so that I can securely end my session.
