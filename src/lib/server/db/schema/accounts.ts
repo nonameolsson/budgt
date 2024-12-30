@@ -24,8 +24,10 @@ export const accounts = sqliteTable('accounts', {
 
 export const insertAccountSchema = createInsertSchema(accounts);
 export type InsertAccountSchema = Static<typeof insertAccountSchema>;
+
 export const selectAccountSchema = createSelectSchema(accounts);
 export type SelectAccountSchema = Static<typeof selectAccountSchema>;
+
 export const updateAccountSchema = createUpdateSchema(accounts);
 export type UpdateAccountSchema = Static<typeof updateAccountSchema>;
 

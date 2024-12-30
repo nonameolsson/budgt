@@ -1,4 +1,5 @@
 import { createId } from '@paralleldrive/cuid2';
+import type { Static } from '@sinclair/typebox';
 import { relations } from 'drizzle-orm';
 import { real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema } from 'drizzle-typebox';
@@ -23,10 +24,14 @@ export const expenses = sqliteTable('expenses', {
 	accountId: text('accountId').notNull()
 });
 
-export const expensesInsertSchema = createInsertSchema(expenses);
+export const insertExpenseSchema = createInsertSchema(expenses);
+export type InsertExpenseSchema = Static<typeof insertExpenseSchema>;
 
-export type InsertExpense = typeof expenses.$inferInsert;
-export type SelectExpense = typeof expenses.$inferSelect;
+export const selectExpenseSchema = createInsertSchema(expenses);
+export type SelectExpenseSchema = Static<typeof selectExpenseSchema>;
+
+export const updateExpenseSchema = createInsertSchema(expenses);
+export type UpdateExpenseSchema = Static<typeof updateExpenseSchema>;
 
 export const expensesRelations = relations(expenses, ({ one }) => ({
 	account: one(accounts, {

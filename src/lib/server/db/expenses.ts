@@ -3,14 +3,14 @@ import { Value } from '@sinclair/typebox/value';
 import { eq } from 'drizzle-orm';
 import { db } from '.';
 import { accounts, selectAccountSchema } from './schema/accounts';
-import { expenses, expensesInsertSchema, type InsertExpense } from './schema/expenses';
+import { expenses, insertExpenseSchema, type InsertExpenseSchema } from './schema/expenses';
 
 export async function getExpenses() {
 	return await db.query.expenses.findMany();
 }
 
-export async function createExpense(data: InsertExpense) {
-	const parsed = Value.Parse(expensesInsertSchema, data);
+export async function createExpense(data: InsertExpenseSchema) {
+	const parsed = Value.Parse(insertExpenseSchema, data);
 	await db.insert(expenses).values(parsed);
 
 	const currentBalance = await db
@@ -34,7 +34,7 @@ export async function deleteExpense(id: string) {
 	const expense = await db.query.expenses.findFirst({
 		where: eq(expenses.id, id)
 	});
-	const parsedExpense = Value.Parse(expensesInsertSchema, expense);
+	const parsedExpense = Value.Parse(insertExpenseSchema, expense);
 
 	const expenseAccount = await db.query.accounts.findFirst({
 		where: eq(accounts.id, parsedExpense.accountId)
