@@ -40,6 +40,12 @@
 				<option value={id}>{name}</option>
 			{/each}
 		</select>
+		<select name="categoryId" required class="w-full rounded border border-gray-300 p-2">
+			<option value="" disabled selected>Select Category</option>
+			{#each data.categories as { id, name }}
+				<option value={id}>{name}</option>
+			{/each}
+		</select>
 		<div class="flex justify-between">
 			<a href="/expenses" class="rounded bg-gray-500 p-2 text-white">Cancel</a>
 			<button type="submit" class="rounded bg-blue-500 p-2 text-white">Add</button>

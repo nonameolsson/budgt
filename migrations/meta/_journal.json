@@ -15,6 +15,13 @@
 			"when": 1735292750215,
 			"tag": "0001_hot_norrin_radd",
 			"breakpoints": true
+		},
+		{
+			"idx": 2,
+			"version": "6",
+			"when": 1735554113840,
+			"tag": "0002_open_natasha_romanoff",
+			"breakpoints": true
 		}
 	]
 }

@@ -6,7 +6,8 @@ import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	const accounts = await db.query.accounts.findMany();
-	return { accounts };
+	const categories = await db.query.categories.findMany();
+	return { accounts, categories };
 };
 
 export const actions: Actions = {
@@ -26,11 +27,15 @@ export const actions: Actions = {
 		const accountId = data.get('accountId');
 		if (accountId === null) return;
 
+		const categoryId = data.get('categoryId');
+		if (categoryId === null) return;
+
 		const newExpense: InsertExpenseSchema = {
 			amount: Number(amount),
 			description: description.toString(),
 			date: date.toString(),
-			accountId: accountId.toString()
+			accountId: accountId.toString(),
+			categoryId: categoryId.toString()
 		};
 
 		await createExpense(newExpense);
