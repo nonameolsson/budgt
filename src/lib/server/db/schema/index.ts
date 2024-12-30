@@ -1,3 +1,3 @@
-export { accounts } from './accounts';
-export { categories } from './categories';
-export { expenses } from './expenses';
+export { accounts, accountsRelations } from './accounts';
+export { categories, categoriesRelations } from './categories';
+export { expenses, expensesRelations } from './expenses';

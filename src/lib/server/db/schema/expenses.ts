@@ -22,18 +22,18 @@ export const expenses = sqliteTable('expenses', {
 		.notNull()
 		.default(new Date().toISOString())
 		.$onUpdateFn(() => new Date().toISOString()),
-	accountId: text('accountId').notNull(),
-	categoryId: text('categoryId').notNull()
+	accountId: text('account_id').notNull(),
+	categoryId: text('category_id').notNull()
 });
 
 export const insertExpenseSchema = createInsertSchema(expenses);
-export type InsertExpenseSchema = Static<typeof insertExpenseSchema>;
+export type InsertExpense = Static<typeof insertExpenseSchema>;
 
 export const selectExpenseSchema = createInsertSchema(expenses);
-export type SelectExpenseSchema = Static<typeof selectExpenseSchema>;
+export type SelectExpense = Static<typeof selectExpenseSchema>;
 
 export const updateExpenseSchema = createInsertSchema(expenses);
-export type UpdateExpenseSchema = Static<typeof updateExpenseSchema>;
+export type UpdateExpense = Static<typeof updateExpenseSchema>;
 
 export const expensesRelations = relations(expenses, ({ one }) => ({
 	account: one(accounts, {

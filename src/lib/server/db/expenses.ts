@@ -1,15 +1,22 @@
 import { Type } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
-import { eq } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 import { db } from '.';
 import { accounts, selectAccountSchema } from './schema/accounts';
-import { expenses, insertExpenseSchema, type InsertExpenseSchema } from './schema/expenses';
+import { expenses, insertExpenseSchema, type InsertExpense } from './schema/expenses';
 
-export async function getExpenses() {
-	return await db.query.expenses.findMany();
+export async function getExpenses(limit?: number) {
+	return await db.query.expenses.findMany({
+		with: {
+			account: true,
+			category: true
+		},
+		orderBy: desc(expenses.date),
+		limit
+	});
 }
 
-export async function createExpense(data: InsertExpenseSchema) {
+export async function createExpense(data: InsertExpense) {
 	const parsed = Value.Parse(insertExpenseSchema, data);
 	await db.insert(expenses).values(parsed);
 

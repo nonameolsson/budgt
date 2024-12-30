@@ -10,7 +10,7 @@ export const accounts = sqliteTable('accounts', {
 		.$defaultFn(() => createId())
 		.notNull()
 		.primaryKey(),
-	name: text('name').notNull(), // TODO: Make unique
+	name: text('name').notNull(),
 	balance: real('balance').notNull(),
 	createdAt: text('created_at')
 		.notNull()
@@ -24,13 +24,13 @@ export const accounts = sqliteTable('accounts', {
 });
 
 export const insertAccountSchema = createInsertSchema(accounts);
-export type InsertAccountSchema = Static<typeof insertAccountSchema>;
+export type InsertAccount = Static<typeof insertAccountSchema>;
 
 export const selectAccountSchema = createSelectSchema(accounts);
-export type SelectAccountSchema = Static<typeof selectAccountSchema>;
+export type SelectAccount = Static<typeof selectAccountSchema>;
 
 export const updateAccountSchema = createUpdateSchema(accounts);
-export type UpdateAccountSchema = Static<typeof updateAccountSchema>;
+export type UpdateAccount = Static<typeof updateAccountSchema>;
 
 export const accountsRelations = relations(accounts, ({ many }) => ({
 	expenses: many(expenses)

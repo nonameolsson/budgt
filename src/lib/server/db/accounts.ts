@@ -4,12 +4,12 @@ import { db } from '.';
 import {
 	accounts,
 	insertAccountSchema,
-	type InsertAccountSchema,
-	type UpdateAccountSchema
+	type InsertAccount,
+	type UpdateAccount
 } from './schema/accounts';
 import { expenses } from './schema/expenses';
 
-export async function createAccount(data: InsertAccountSchema) {
+export async function createAccount(data: InsertAccount) {
 	const parsed = Value.Parse(insertAccountSchema, data);
 
 	const existingPrimaryAccount = await db.query.accounts.findFirst({
@@ -52,7 +52,7 @@ export async function deleteAccount(id: string) {
 	return await db.delete(accounts).where(eq(accounts.id, id));
 }
 
-export async function updateAccount(id: string, data: UpdateAccountSchema) {
+export async function updateAccount(id: string, data: UpdateAccount) {
 	await db.update(accounts).set({ is_primary: false }).where(eq(accounts.is_primary, true));
 	return await db.update(accounts).set(data).where(eq(accounts.id, id));
 }

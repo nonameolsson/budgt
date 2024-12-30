@@ -1,5 +1,5 @@
 import { db } from '$lib/server/db';
-import { categories, type InsertCategorySchema } from '$lib/server/db/schema/categories';
+import { categories, type InsertCategory } from '$lib/server/db/schema/categories';
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
@@ -10,7 +10,7 @@ export const actions: Actions = {
 		const name = data.get('name');
 		if (name === null) return;
 
-		const newCategory: InsertCategorySchema = {
+		const newCategory: InsertCategory = {
 			name: name.toString()
 		};
 

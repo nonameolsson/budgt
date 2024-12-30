@@ -1,6 +1,6 @@
 import { db } from '$lib/server/db';
 import { createExpense } from '$lib/server/db/expenses';
-import type { InsertExpenseSchema } from '$lib/server/db/schema/expenses';
+import type { InsertExpense } from '$lib/server/db/schema/expenses';
 import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -30,7 +30,7 @@ export const actions: Actions = {
 		const categoryId = data.get('categoryId');
 		if (categoryId === null) return;
 
-		const newExpense: InsertExpenseSchema = {
+		const newExpense: InsertExpense = {
 			amount: Number(amount),
 			description: description.toString(),
 			date: date.toString(),

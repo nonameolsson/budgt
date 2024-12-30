@@ -2,7 +2,7 @@ import { getAccount, updateAccount } from '$lib/server/db/accounts';
 import {
 	selectAccountSchema,
 	updateAccountSchema,
-	type UpdateAccountSchema
+	type UpdateAccount
 } from '$lib/server/db/schema/accounts';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
@@ -32,7 +32,7 @@ export const actions: Actions = {
 			return fail(400, { form });
 		}
 
-		const data: UpdateAccountSchema = {
+		const data: UpdateAccount = {
 			name: form.data.name,
 			balance: form.data.balance,
 			is_primary: form.data.is_primary
