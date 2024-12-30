@@ -1,5 +1,5 @@
 import { createExpense, deleteExpense, getExpenses } from '$lib/server/db/expenses';
-import type { InsertExpense } from '$lib/server/db/schema/expenses';
+import type { InsertExpenseSchema } from '$lib/server/db/schema/expenses';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
@@ -23,7 +23,7 @@ export const actions: Actions = {
 		const accountId = data.get('accountId');
 		if (accountId === null) return;
 
-		const newExpense: InsertExpense = {
+		const newExpense: InsertExpenseSchema = {
 			amount: Number(amount),
 			description: description.toString(),
 			accountId: accountId.toString(),

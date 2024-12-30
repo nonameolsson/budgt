@@ -1,5 +1,5 @@
 import { createCategory, deleteCategory, getCategories } from '$lib/server/db/categories';
-import type { InsertCategory } from '$lib/server/db/schema/categories';
+import type { InsertCategorySchema } from '$lib/server/db/schema/categories';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
@@ -14,7 +14,7 @@ export const actions: Actions = {
 		const name = data.get('name');
 		if (name === null) return;
 
-		const newCategory: InsertCategory = {
+		const newCategory: InsertCategorySchema = {
 			name: name.toString()
 		};
 

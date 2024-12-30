@@ -1,11 +1,16 @@
 import { Value } from '@sinclair/typebox/value';
 import { eq } from 'drizzle-orm';
 import { db } from '.';
-import { accountInsertSchema, accounts, type InsertAccount } from './schema/accounts';
+import {
+	accounts,
+	insertAccountSchema,
+	type InsertAccountSchema,
+	type UpdateAccountSchema
+} from './schema/accounts';
 import { expenses } from './schema/expenses';
 
-export async function createAccount(data: InsertAccount) {
-	const parsed = Value.Parse(accountInsertSchema, data);
+export async function createAccount(data: InsertAccountSchema) {
+	const parsed = Value.Parse(insertAccountSchema, data);
 
 	return await db.insert(accounts).values(parsed);
 }
@@ -15,7 +20,7 @@ export async function getAccounts() {
 }
 
 export async function getAccount(id: string) {
-	return await db.select().from(accounts).where(eq(accounts.id, id));
+	return await db.query.accounts.findFirst({ where: eq(accounts.id, id) });
 }
 
 export async function deleteAccount(id: string) {
@@ -23,6 +28,6 @@ export async function deleteAccount(id: string) {
 	return await db.delete(accounts).where(eq(accounts.id, id));
 }
 
-export async function updateAccount(id: string, data: Partial<InsertAccount>) {
+export async function updateAccount(id: string, data: UpdateAccountSchema) {
 	return await db.update(accounts).set(data).where(eq(accounts.id, id));
 }
