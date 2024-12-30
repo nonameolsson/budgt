@@ -1,7 +1,7 @@
 import { createId } from '@paralleldrive/cuid2';
 import type { Static } from '@sinclair/typebox';
 import { relations } from 'drizzle-orm';
-import { real, sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+import { integer, real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema, createSelectSchema, createUpdateSchema } from 'drizzle-typebox';
 import { expenses } from './expenses';
 
@@ -10,7 +10,7 @@ export const accounts = sqliteTable('accounts', {
 		.$defaultFn(() => createId())
 		.notNull()
 		.primaryKey(),
-	name: text('name').notNull(),
+	name: text('name').notNull(), // TODO: Make unique
 	balance: real('balance').notNull(),
 	createdAt: text('created_at')
 		.notNull()
@@ -20,7 +20,7 @@ export const accounts = sqliteTable('accounts', {
 		.notNull()
 		.default(new Date().toISOString())
 		.$onUpdateFn(() => new Date().toISOString()),
-	is_primary: integer('is_primary').notNull().default(0)
+	is_primary: integer({ mode: 'boolean' }).notNull().default(false)
 });
 
 export const insertAccountSchema = createInsertSchema(accounts);

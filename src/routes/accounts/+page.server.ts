@@ -1,4 +1,4 @@
-import { deleteAccount, getAccounts, setPrimaryAccount } from '$lib/server/db/accounts';
+import { deleteAccount, getAccounts } from '$lib/server/db/accounts';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
@@ -14,12 +14,5 @@ export const actions: Actions = {
 		if (id === null) return;
 
 		await deleteAccount(String(id));
-	},
-	setPrimaryAccount: async ({ request }) => {
-		const data = await request.formData();
-		const id = data.get('id');
-		if (id === null) return;
-
-		await setPrimaryAccount(String(id));
 	}
 } satisfies Actions;

@@ -20,6 +20,10 @@ export async function createAccount(data: InsertAccountSchema) {
 		parsed.is_primary = true;
 	}
 
+	if (parsed.is_primary) {
+		await db.update(accounts).set({ is_primary: false }).where(eq(accounts.is_primary, true));
+	}
+
 	return await db.insert(accounts).values(parsed);
 }
 
@@ -49,10 +53,6 @@ export async function deleteAccount(id: string) {
 }
 
 export async function updateAccount(id: string, data: UpdateAccountSchema) {
-	return await db.update(accounts).set(data).where(eq(accounts.id, id));
-}
-
-export async function setPrimaryAccount(id: string) {
 	await db.update(accounts).set({ is_primary: false }).where(eq(accounts.is_primary, true));
-	return await db.update(accounts).set({ is_primary: true }).where(eq(accounts.id, id));
+	return await db.update(accounts).set(data).where(eq(accounts.id, id));
 }
