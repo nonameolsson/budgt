@@ -2,7 +2,7 @@ import { Type } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
 import { eq } from 'drizzle-orm';
 import { db } from '.';
-import { accounts, accountSelectSchema } from './schema/accounts';
+import { accounts, selectAccountSchema } from './schema/accounts';
 import { expenses, expensesInsertSchema, type InsertExpense } from './schema/expenses';
 
 export async function getExpenses() {
@@ -39,7 +39,7 @@ export async function deleteExpense(id: string) {
 	const expenseAccount = await db.query.accounts.findFirst({
 		where: eq(accounts.id, parsedExpense.accountId)
 	});
-	const parsedExpenseAccount = Value.Parse(accountSelectSchema, expenseAccount);
+	const parsedExpenseAccount = Value.Parse(selectAccountSchema, expenseAccount);
 	const newBalance = parsedExpenseAccount.balance + parsedExpense.amount;
 
 	// Delete expense

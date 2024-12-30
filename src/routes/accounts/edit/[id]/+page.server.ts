@@ -1,32 +1,42 @@
-import { getAccounts, updateAccount } from '$lib/server/db/accounts';
-import { fail, redirect } from '@sveltejs/kit';
+import { getAccount, updateAccount } from '$lib/server/db/accounts';
+import {
+	selectAccountSchema,
+	updateAccountSchema,
+	type UpdateAccountSchema
+} from '$lib/server/db/schema/accounts';
+import { error, fail, redirect } from '@sveltejs/kit';
+import { superValidate } from 'sveltekit-superforms';
+import { typebox } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
-	const accounts = await getAccounts();
-	const account = accounts.find((acc) => acc.id === params.id);
-
+	const account = await getAccount(params.id);
 	if (!account) {
-		return fail(404);
+		error(404);
 	}
 
-	return { account };
+	const form = await superValidate(account, typebox(selectAccountSchema));
+
+	if (!form.valid) {
+		error(400);
+	}
+
+	return { form };
 };
 
 export const actions: Actions = {
-	updateAccount: async ({ request, params }) => {
-		const data = await request.formData();
-		const name = data.get('name');
-		const balance = data.get('balance');
+	updateAccount: async ({ params, request }) => {
+		const form = await superValidate(request, typebox(updateAccountSchema));
 
-		if (!name || !balance) {
-			return fail(400);
+		if (!form.valid) {
+			return fail(400, { form });
 		}
 
-		await updateAccount(params.id, {
-			name: name.toString(),
-			balance: Number(balance)
-		});
+		const data: UpdateAccountSchema = {
+			name: form.data.name,
+			balance: form.data.balance
+		};
+		await updateAccount(params.id, data);
 
 		redirect(303, '/accounts');
 	}
