@@ -10,9 +10,9 @@
 		method="POST"
 		action="?/deleteAccount"
 		use:enhance={() => {
-			selectedAccount = null;
+			return async ({ result, update }) => {
+				await update();
 
-			return async ({ result }) => {
 				selectedAccount = null;
 				if (result.type === 'redirect') {
 					goto(result.location);
