@@ -1,4 +1,4 @@
-import { deleteAccount, getAccounts } from '$lib/server/db/accounts';
+import { deleteAccount, getAccounts } from '$lib/server/services/accountsService';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {

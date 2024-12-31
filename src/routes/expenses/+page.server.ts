@@ -1,4 +1,4 @@
-import { createExpense, deleteExpense, getExpenses } from '$lib/server/db/expenses';
+import { createExpense, deleteExpense, getExpenses } from '$lib/server/services/expensesService';
 import type { InsertExpense } from '$lib/server/db/schema/expenses';
 import type { Actions, PageServerLoad } from './$types';
 

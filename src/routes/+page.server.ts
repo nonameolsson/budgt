@@ -1,4 +1,4 @@
-import { getExpenses } from '$lib/server/db/expenses';
+import { getExpenses } from '$lib/server/services/expensesService';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
