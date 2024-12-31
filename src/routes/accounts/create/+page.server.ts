@@ -1,5 +1,5 @@
-import { createAccount } from '$lib/server/db/accounts';
 import { insertAccountSchema, type InsertAccount } from '$lib/server/db/schema/accounts';
+import { accountService } from '$lib/server/services/accountsService';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { typebox } from 'sveltekit-superforms/adapters';
@@ -25,7 +25,7 @@ export const actions: Actions = {
 			is_primary: form.data.is_primary
 		};
 
-		await createAccount(newAccount);
+		await accountService.createAccount(newAccount);
 
 		redirect(303, '/accounts');
 	}

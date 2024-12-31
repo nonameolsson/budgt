@@ -1,12 +1,13 @@
 import { db } from '$lib/server/db';
-import { createExpense } from '$lib/server/db/expenses';
 import type { InsertExpense } from '$lib/server/db/schema/expenses';
+import { categoriesService } from '$lib/server/services/categoriesService';
+import { expensesService } from '$lib/server/services/expensesService';
 import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	const accounts = await db.query.accounts.findMany();
-	const categories = await db.query.categories.findMany();
+	const categories = await categoriesService.getCategories();
 	return { accounts, categories };
 };
 
@@ -38,7 +39,7 @@ export const actions: Actions = {
 			categoryId: categoryId.toString()
 		};
 
-		await createExpense(newExpense);
+		await expensesService.createExpense(newExpense);
 		redirect(303, '/expenses');
 	}
 };

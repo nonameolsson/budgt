@@ -1,16 +1,16 @@
-import { getAccount, updateAccount } from '$lib/server/db/accounts';
 import {
 	selectAccountSchema,
 	updateAccountSchema,
 	type UpdateAccount
 } from '$lib/server/db/schema/accounts';
+import { accountService } from '$lib/server/services/accountsService';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { typebox } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
-	const account = await getAccount(params.id);
+	const account = await accountService.getAccount(params.id);
 	if (!account) {
 		error(404);
 	}
@@ -37,7 +37,7 @@ export const actions: Actions = {
 			balance: form.data.balance,
 			is_primary: form.data.is_primary
 		};
-		await updateAccount(params.id, data);
+		await accountService.updateAccount(params.id, data);
 
 		redirect(303, '/accounts');
 	}

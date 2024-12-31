@@ -1,8 +1,8 @@
-import { deleteAccount, getAccounts } from '$lib/server/db/accounts';
+import { accountService } from '$lib/server/services/accountsService';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	const accounts = await getAccounts();
+	const accounts = await accountService.getAccounts();
 
 	return { accounts };
 };
@@ -13,6 +13,6 @@ export const actions: Actions = {
 		const id = data.get('id');
 		if (id === null) return;
 
-		await deleteAccount(String(id));
+		await accountService.deleteAccount(String(id));
 	}
 } satisfies Actions;
