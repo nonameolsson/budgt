@@ -15,6 +15,9 @@
 				<span>{expense.description}</span>
 				<span>{expense.amount}</span>
 				<span>{expense.date}</span>
+				<a href={`/expenses/edit/${expense.id}`} class="rounded bg-yellow-500 p-2 text-white">
+					Edit
+				</a>
 				<form method="POST" action="?/deleteExpense" use:enhance class="inline">
 					<input type="hidden" name="id" value={expense.id} />
 					<button class="rounded bg-red-500 p-2 text-white">Delete</button>
