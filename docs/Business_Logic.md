@@ -267,3 +267,36 @@ const updatedCategory = {
 };
 await categoriesService.updateCategory('category-id', updatedCategory);
 ```
+
+## Managing User Profiles
+
+### Business Logic
+
+- Ensure that the user's preferred currency is a valid currency code (e.g., ISO 4217 currency codes).
+
+### Database Modeling
+
+- Table: `users`
+  - Columns: `id`, `name`, `email`, `currency`
+
+### Example Queries
+
+- Update User Currency:
+  ```sql
+  UPDATE users SET currency = ? WHERE id = ?;
+  ```
+
+### Functions and Classes
+
+#### `UsersService`
+
+- `updateUserCurrency(userId: string, currency: string)`: Updates the user's preferred currency.
+
+#### Example Usage
+
+```typescript
+import { usersService } from '$lib/server/services/usersService';
+
+// Update user's preferred currency
+await usersService.updateUserCurrency('user-id', 'USD');
+```
