@@ -1,10 +1,12 @@
-import { createExpense, deleteExpense, getExpenses } from '$lib/server/services/expensesService';
 import type { InsertExpense } from '$lib/server/db/schema/expenses';
+import { categoriesService } from '$lib/server/services/categoriesService';
+import { expensesService } from '$lib/server/services/expensesService';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	const expenses = await getExpenses();
-	return { expenses };
+	const expenses = await expensesService.getExpenses();
+	const categories = await categoriesService.getCategories();
+	return { expenses, categories };
 };
 
 export const actions: Actions = {
@@ -34,13 +36,13 @@ export const actions: Actions = {
 			categoryId: categoryId.toString()
 		};
 
-		await createExpense(newExpense);
+		await expensesService.createExpense(newExpense);
 	},
 	deleteExpense: async ({ request }) => {
 		const data = await request.formData();
 		const id = data.get('id');
 		if (id === null) return;
 
-		await deleteExpense(String(id));
+		await expensesService.deleteExpense(String(id));
 	}
 };

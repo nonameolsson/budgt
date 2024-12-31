@@ -1,13 +1,9 @@
-import {
-	createCategory,
-	deleteCategory,
-	getCategories
-} from '$lib/server/services/categoriesService';
 import type { InsertCategory } from '$lib/server/db/schema/categories';
+import { categoriesService } from '$lib/server/services/categoriesService';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	const categories = await getCategories();
+	const categories = await categoriesService.getCategories();
 	return { categories };
 };
 
@@ -22,13 +18,13 @@ export const actions: Actions = {
 			name: name.toString()
 		};
 
-		await createCategory(newCategory);
+		await categoriesService.createCategory(newCategory);
 	},
 	deleteCategory: async ({ request }) => {
 		const data = await request.formData();
 		const id = data.get('id');
 		if (id === null) return;
 
-		await deleteCategory(String(id));
+		await categoriesService.deleteCategory(String(id));
 	}
 };
