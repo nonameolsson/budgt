@@ -2,7 +2,7 @@ import { createId } from '@paralleldrive/cuid2';
 import type { Static } from '@sinclair/typebox';
 import { relations } from 'drizzle-orm';
 import { sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { createInsertSchema } from 'drizzle-typebox';
+import { createInsertSchema, createSelectSchema, createUpdateSchema } from 'drizzle-typebox';
 import { expenses } from './expenses';
 
 export const categories = sqliteTable('categories', {
@@ -10,7 +10,7 @@ export const categories = sqliteTable('categories', {
 		.$defaultFn(() => createId())
 		.notNull()
 		.primaryKey(),
-	name: text('name').notNull(),
+	name: text('name').unique().notNull(),
 	createdAt: text('created_at')
 		.notNull()
 		.default(new Date().toISOString())
@@ -24,10 +24,10 @@ export const categories = sqliteTable('categories', {
 export const insertCategorySchema = createInsertSchema(categories);
 export type InsertCategory = Static<typeof insertCategorySchema>;
 
-export const selectCategorySchema = createInsertSchema(categories);
+export const selectCategorySchema = createSelectSchema(categories);
 export type SelectCategory = Static<typeof selectCategorySchema>;
 
-export const updateCategorySchema = createInsertSchema(categories);
+export const updateCategorySchema = createUpdateSchema(categories);
 export type UpdateCategory = Static<typeof updateCategorySchema>;
 
 export const categoriesRelations = relations(categories, ({ many }) => ({

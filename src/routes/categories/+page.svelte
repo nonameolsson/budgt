@@ -14,6 +14,9 @@
 		{#each data.categories as category}
 			<li class="mb-2 flex justify-between">
 				<span>{category.name}</span>
+				<a href={`/categories/edit/${category.id}`} class="rounded bg-yellow-500 p-2 text-white">
+					Edit
+				</a>
 				<form method="POST" action="?/deleteCategory" use:enhance>
 					<input type="hidden" name="id" value={category.id} />
 					<button type="submit" class="rounded bg-red-500 p-2 text-white">Delete</button>
