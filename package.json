@@ -21,6 +21,7 @@
 		"db:check": "drizzle-kit check",
 		"db:studio": "drizzle-kit studio",
 		"db:generate": "drizzle-kit generate",
+		"db:seed": "drizzle-kit seed",
 		"prepare": "husky"
 	},
 	"devDependencies": {
