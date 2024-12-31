@@ -28,6 +28,48 @@
   UPDATE accounts SET balance = balance + ? WHERE id = ?;
   ```
 
+### Functions and Classes
+
+#### `ExpensesService`
+
+- `createExpense(data: InsertExpense)`: Creates a new expense and updates the account balance.
+- `getExpenses(limit?: number)`: Retrieves a list of expenses, optionally limited by a specified number.
+- `getExpense(id: string)`: Retrieves a specific expense by its ID.
+- `deleteExpense(id: string)`: Deletes an expense and updates the account balance.
+- `updateExpense(id: string, data: UpdateExpense)`: Updates an existing expense.
+
+#### Example Usage
+
+```typescript
+import { expensesService } from '$lib/server/services/expensesService';
+
+// Create a new expense
+const newExpense = {
+  amount: 50,
+  description: 'Groceries',
+  date: new Date().toISOString(),
+  accountId: 'account-id',
+  categoryId: 'category-id'
+};
+await expensesService.createExpense(newExpense);
+
+// Get a list of expenses
+const expenses = await expensesService.getExpenses(10);
+
+// Get a specific expense
+const expense = await expensesService.getExpense('expense-id');
+
+// Delete an expense
+await expensesService.deleteExpense('expense-id');
+
+// Update an expense
+const updatedExpense = {
+  amount: 60,
+  description: 'Groceries and snacks'
+};
+await expensesService.updateExpense('expense-id', updatedExpense);
+```
+
 ## Managing Income
 
 ### Business Logic
@@ -55,6 +97,47 @@
   DELETE FROM income WHERE id = ?;
   UPDATE accounts SET balance = balance - ? WHERE id = ?;
   ```
+
+### Functions and Classes
+
+#### `IncomeService`
+
+- `createIncome(data: InsertIncome)`: Creates a new income and updates the account balance.
+- `getIncomes(limit?: number)`: Retrieves a list of incomes, optionally limited by a specified number.
+- `getIncome(id: string)`: Retrieves a specific income by its ID.
+- `deleteIncome(id: string)`: Deletes an income and updates the account balance.
+- `updateIncome(id: string, data: UpdateIncome)`: Updates an existing income.
+
+#### Example Usage
+
+```typescript
+import { incomeService } from '$lib/server/services/incomeService';
+
+// Create a new income
+const newIncome = {
+  amount: 1000,
+  description: 'Salary',
+  date: new Date().toISOString(),
+  accountId: 'account-id'
+};
+await incomeService.createIncome(newIncome);
+
+// Get a list of incomes
+const incomes = await incomeService.getIncomes(10);
+
+// Get a specific income
+const income = await incomeService.getIncome('income-id');
+
+// Delete an income
+await incomeService.deleteIncome('income-id');
+
+// Update an income
+const updatedIncome = {
+  amount: 1200,
+  description: 'Salary with bonus'
+};
+await incomeService.updateIncome('income-id', updatedIncome);
+```
 
 ## Managing Accounts
 
@@ -87,6 +170,45 @@
   UPDATE accounts SET is_primary = 1 WHERE id = ?;
   ```
 
+### Functions and Classes
+
+#### `AccountService`
+
+- `createAccount(data: InsertAccount)`: Creates a new account and sets it as primary if no other primary account exists.
+- `getAccounts()`: Retrieves a list of all accounts.
+- `getAccount(id: string)`: Retrieves a specific account by its ID.
+- `deleteAccount(id: string)`: Deletes an account and its associated expenses and income.
+- `updateAccount(id: string, data: UpdateAccount)`: Updates an existing account.
+
+#### Example Usage
+
+```typescript
+import { accountService } from '$lib/server/services/accountsService';
+
+// Create a new account
+const newAccount = {
+  name: 'Savings',
+  balance: 5000
+};
+await accountService.createAccount(newAccount);
+
+// Get a list of accounts
+const accounts = await accountService.getAccounts();
+
+// Get a specific account
+const account = await accountService.getAccount('account-id');
+
+// Delete an account
+await accountService.deleteAccount('account-id');
+
+// Update an account
+const updatedAccount = {
+  name: 'Emergency Fund',
+  balance: 6000
+};
+await accountService.updateAccount('account-id', updatedAccount);
+```
+
 ## Managing Categories
 
 ### Business Logic
@@ -108,3 +230,40 @@
   ```sql
   DELETE FROM categories WHERE id = ?;
   ```
+
+### Functions and Classes
+
+#### `CategoriesService`
+
+- `createCategory(data: InsertCategory)`: Creates a new category.
+- `getCategories()`: Retrieves a list of all categories.
+- `getCategory(id: string)`: Retrieves a specific category by its ID.
+- `deleteCategory(id: string)`: Deletes a category and its associated expenses.
+- `updateCategory(id: string, data: UpdateCategory)`: Updates an existing category.
+
+#### Example Usage
+
+```typescript
+import { categoriesService } from '$lib/server/services/categoriesService';
+
+// Create a new category
+const newCategory = {
+  name: 'Food'
+};
+await categoriesService.createCategory(newCategory);
+
+// Get a list of categories
+const categories = await categoriesService.getCategories();
+
+// Get a specific category
+const category = await categoriesService.getCategory('category-id');
+
+// Delete a category
+await categoriesService.deleteCategory('category-id');
+
+// Update a category
+const updatedCategory = {
+  name: 'Groceries'
+};
+await categoriesService.updateCategory('category-id', updatedCategory);
+```
