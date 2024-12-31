@@ -1,28 +1,69 @@
+import * as schema from '$lib/server/db/schema';
+import { reset } from 'drizzle-seed';
 import { db } from './index';
-import { accounts, categories, expenses } from './schema';
-import { InsertAccount, InsertCategory, InsertExpense } from 'drizzle-typebox';
+import type { InsertAccount } from './schema/accounts';
+import type { InsertCategory } from './schema/categories';
+import type { InsertExpense } from './schema/expenses';
 
 const seedAccounts: InsertAccount[] = [
-  { id: '1', name: 'Cash', balance: 1000, is_primary: true },
-  { id: '2', name: 'Bank', balance: 5000, is_primary: false }
+	{ id: 'cc6gkcsvgvxagvry16yh74v4', name: 'Cash', balance: 1000, is_primary: true },
+	{ id: 'cja4l3wtsaw9h93945xjdbzu', name: 'Bank', balance: 5000, is_primary: false }
 ];
 
 const seedCategories: InsertCategory[] = [
-  { id: '1', name: 'Food' },
-  { id: '2', name: 'Transport' }
+	{ id: 'dkm8kmfxnbpvkmovst', name: 'Uncategorized' },
+	{ id: 'kdd2kfmxkdj9k837ak', name: 'Utilities' },
+	{ id: 'jdosk388sl3kasjdnc', name: 'Transport' },
+	{ id: 'fkm3wtsaw9h935xbzu', name: 'Food' }
 ];
 
 const seedExpenses: InsertExpense[] = [
-  { id: '1', amount: 50, description: 'Groceries', date: '2023-01-01', accountId: '1', categoryId: '1' },
-  { id: '2', amount: 20, description: 'Bus ticket', date: '2023-01-02', accountId: '2', categoryId: '2' }
+	{
+		id: 'i9a4pijkm8kmfxnbpvkmovst',
+		amount: 50,
+		description: 'Groceries',
+		date: '2023-01-01',
+		accountId: 'cja4l3wtsaw9h93945xjdbzu',
+		categoryId: 'fkm3wtsaw9h935xbzu'
+	},
+	{
+		id: 'jsdks938ajkfjds83jdlsdkj3',
+		amount: 20,
+		description: 'Bus ticket',
+		date: '2023-01-02',
+		accountId: 'cc6gkcsvgvxagvry16yh74v4',
+		categoryId: 'jdosk388sl3kasjdnc'
+	},
+	{
+		id: 'fksd83jhslkdjsdfs09dok3ut',
+		amount: 100,
+		description: 'Electricity bill',
+		date: '2023-01-03',
+		accountId: 'cja4l3wtsaw9h93945xjdbzu',
+		categoryId: 'kdd2kfmxkdj9k837ak'
+	},
+	{
+		id: 'jdsjl30amvc9xfjdsj3jo83js',
+		amount: 50,
+		description: 'Gifts',
+		date: '2023-01-04',
+		accountId: 'cc6gkcsvgvxagvry16yh74v4',
+		categoryId: 'fkm3wtsaw9h935xbzu'
+	}
 ];
 
 async function seedDatabase() {
-  await db.insert(accounts).values(seedAccounts);
-  await db.insert(categories).values(seedCategories);
-  await db.insert(expenses).values(seedExpenses);
+	await db.insert(schema.accounts).values(seedAccounts);
+	await db.insert(schema.categories).values(seedCategories);
+	await db.insert(schema.expenses).values(seedExpenses);
 }
 
-seedDatabase().catch((error) => {
-  console.error('Error seeding database:', error);
-});
+export async function initiateSeed() {
+	seedDatabase().catch((error) => {
+		console.error('Error seeding database:', error);
+	});
+}
+
+export async function resetDatabase() {
+	await reset(db, schema);
+}
