@@ -1,5 +1,6 @@
 import * as schema from '$lib/server/db/schema';
 import { reset } from 'drizzle-seed';
+import { logger } from '../logger';
 import { db } from './index';
 import type { InsertAccount } from './schema/accounts';
 import type { InsertCategory } from './schema/categories';
@@ -59,11 +60,24 @@ async function seedDatabase() {
 }
 
 export async function initiateSeed() {
-	seedDatabase().catch((error) => {
-		console.error('Error seeding database:', error);
-	});
+	try {
+		console.log('Seeding database...');
+		await seedDatabase();
+		console.log('Database seeded successfully');
+	} catch (error) {
+		logger.error(error, 'Error seeding database');
+		throw error;
+	}
 }
 
 export async function resetDatabase() {
-	await reset(db, schema);
+	try {
+		console.log('Resetting database...');
+		// @ts-expect-error - The types of the databse reset function are not correct
+		await reset(db, schema);
+		console.log('Database reset successfully');
+	} catch (error) {
+		logger.error(error, 'Error resetting database');
+		throw error;
+	}
 }
