@@ -98,6 +98,13 @@
 				<span>Expenses</span>
 			</a>
 		</li>
+		<li>
+			<a
+				href="/login"
+				class="rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700"
+				class:active={page.url.pathname === '/login'}>Login</a
+			>
+		</li>
 	</ul>
 </nav>
 
