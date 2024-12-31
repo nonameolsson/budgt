@@ -1,12 +1,10 @@
 <script lang="ts">
-	import SuperDebug, { superForm } from 'sveltekit-superforms';
+	import { superForm } from 'sveltekit-superforms';
 
 	let { data } = $props();
 
 	const { form, errors, constraints, message, enhance } = superForm(data.form);
 </script>
-
-<SuperDebug data={$form} />
 
 <div class="container mx-auto p-4">
 	<h1 class="mb-4 text-2xl font-bold">Edit Account</h1>
