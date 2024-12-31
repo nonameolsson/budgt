@@ -98,6 +98,52 @@
 				<span>Expenses</span>
 			</a>
 		</li>
+		<li>
+			<a
+				href="/login"
+				class="flex flex-col items-center rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700"
+				class:active={page.url.pathname === '/login'}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-6 w-6"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M5 13l4 4L19 7"
+					/>
+				</svg>
+				<span>Login</span>
+			</a>
+		</li>
+		<li>
+			<a
+				href="/signup"
+				class="flex flex-col items-center rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700"
+				class:active={page.url.pathname === '/signup'}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-6 w-6"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M5 13l4 4L19 7"
+					/>
+				</svg>
+				<span>Sign Up</span>
+			</a>
+		</li>
 	</ul>
 </nav>
 
