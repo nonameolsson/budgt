@@ -11,7 +11,7 @@ const FormSchema = Type.Object({
 
 export const load: PageServerLoad = async () => {
 	const accounts = await accountService.getAccounts();
-	console.log(accounts);
+
 	return { accounts };
 };
 
