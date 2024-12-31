@@ -80,7 +80,7 @@
 			{...$constraints.categoryId}
 		>
 			{#if data.categories.length === 0}
-				<option value="" disabled selected>Select Category</option>
+				<option value="" disabled selected>No categories...</option>
 			{/if}
 			{#each data.categories as { id, name }}
 				<option value={id}>{name}</option>

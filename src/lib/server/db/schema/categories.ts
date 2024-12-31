@@ -10,7 +10,7 @@ export const categories = sqliteTable('categories', {
 		.$defaultFn(() => createId())
 		.notNull()
 		.primaryKey(),
-	name: text('name').unique().notNull(),
+	name: text('name').notNull(),
 	createdAt: text('created_at')
 		.notNull()
 		.default(new Date().toISOString())
