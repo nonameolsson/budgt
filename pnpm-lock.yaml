@@ -41,9 +41,6 @@ importers:
       pino:
         specifier: ^9.6.0
         version: 9.6.0
-      pino-pretty:
-        specifier: ^13.0.0
-        version: 13.0.0
     devDependencies:
       '@eslint/compat':
         specifier: ^1.2.4
@@ -96,6 +93,9 @@ importers:
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
+      pino-pretty:
+        specifier: ^13.0.0
+        version: 13.0.0
       prettier:
         specifier: ^3.4.2
         version: 3.4.2
