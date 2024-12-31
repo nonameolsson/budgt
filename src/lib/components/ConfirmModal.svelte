@@ -1,13 +1,29 @@
 <script lang="ts">
-	export let visible: boolean;
-	export let id: string | null;
-	export let onCancel: () => void;
+	import { applyAction, enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
+
+	let { selectedAccount = $bindable() } = $props();
 </script>
 
-{#if visible}
-	<form method="POST" action="?/deleteAccount">
-		<input type="hidden" name="id" value={id} />
-		<div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
+{#if selectedAccount}
+	<form
+		method="POST"
+		action="?/deleteAccount"
+		use:enhance={() => {
+			return async ({ result, update }) => {
+				await update();
+
+				selectedAccount = null;
+				if (result.type === 'redirect') {
+					goto(result.location);
+				} else {
+					await applyAction(result);
+				}
+			};
+		}}
+	>
+		<input type="hidden" name="id" value={selectedAccount} />
+		<div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
 			<div class="rounded bg-white p-6 shadow-md">
 				<h2 class="mb-4 text-xl font-bold">Confirm Deletion</h2>
 				<p class="mb-4">
@@ -15,10 +31,13 @@
 					all related expenses.
 				</p>
 				<div class="flex justify-end space-x-4">
-					<button on:click={onCancel} class="rounded bg-gray-500 px-4 py-2 text-white"
-						>Cancel</button
+					<button
+						onclick={() => (selectedAccount = null)}
+						class="rounded bg-gray-500 p-2 text-white"
 					>
-					<button type="submit" class="rounded bg-red-500 px-4 py-2 text-white">Proceed</button>
+						Cancel
+					</button>
+					<button type="submit" class="rounded bg-red-500 px-4 py-2 text-white">Delete</button>
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { superForm } from 'sveltekit-superforms';
+
 	let { data } = $props();
-	import { enhance } from '$app/forms';
+	const { enhance } = superForm(data.form);
 </script>
 
 <div class="container mx-auto p-4">

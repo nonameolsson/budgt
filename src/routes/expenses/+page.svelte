@@ -1,6 +1,7 @@
 <script lang="ts">
-	let { data } = $props();
 	import { enhance } from '$app/forms';
+
+	let { data } = $props();
 </script>
 
 <div class="container mx-auto p-4">

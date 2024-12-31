@@ -13,7 +13,7 @@ export const expenses = sqliteTable('expenses', {
 		.notNull(),
 	amount: real('amount').notNull(),
 	description: text('description'),
-	date: text('date').notNull(),
+	date: text('date').notNull().default(new Date().toISOString()),
 	createdAt: text('created_at')
 		.notNull()
 		.default(new Date().toISOString())
