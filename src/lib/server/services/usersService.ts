@@ -2,9 +2,9 @@ import { Value } from '@sinclair/typebox/value';
 import { eq } from 'drizzle-orm';
 import { db } from '../db';
 import {
+	users,
 	insertUserSchema,
 	updateUserSchema,
-	users,
 	type InsertUser,
 	type UpdateUser
 } from '../db/schema/users';
