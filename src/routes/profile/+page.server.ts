@@ -1,8 +1,9 @@
+import { logger } from '$lib/server/logger';
 import { usersService } from '$lib/server/services/usersService';
+import { Type } from '@sinclair/typebox';
 import { fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { typebox } from 'sveltekit-superforms/adapters';
-import { Type } from '@sinclair/typebox';
 import type { Actions, PageServerLoad } from './$types';
 
 const FormSchema = Type.Object({
@@ -27,6 +28,7 @@ export const actions: Actions = {
 			await usersService.updateUserCurrency(locals.user.id, form.data.currency);
 			throw redirect(303, '/profile');
 		} catch (error) {
+			logger.error(error);
 			return fail(500, { error: 'Failed to update currency' });
 		}
 	}
