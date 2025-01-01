@@ -64,6 +64,13 @@
       "when": 1735658630540,
       "tag": "0008_chunky_triton",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1735730444908,
+      "tag": "0009_omniscient_the_hunter",
+      "breakpoints": true
     }
   ]
 }

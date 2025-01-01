@@ -2,7 +2,7 @@ import { createId } from '@paralleldrive/cuid2';
 import type { Static } from '@sinclair/typebox';
 import { relations } from 'drizzle-orm';
 import { real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { createInsertSchema } from 'drizzle-typebox';
+import { createInsertSchema, createSelectSchema, createUpdateSchema } from 'drizzle-typebox';
 import { accounts } from './accounts';
 import { categories } from './categories';
 
@@ -29,10 +29,10 @@ export const expenses = sqliteTable('expenses', {
 export const insertExpenseSchema = createInsertSchema(expenses);
 export type InsertExpense = Static<typeof insertExpenseSchema>;
 
-export const selectExpenseSchema = createInsertSchema(expenses);
+export const selectExpenseSchema = createSelectSchema(expenses);
 export type SelectExpense = Static<typeof selectExpenseSchema>;
 
-export const updateExpenseSchema = createInsertSchema(expenses);
+export const updateExpenseSchema = createUpdateSchema(expenses);
 export type UpdateExpense = Static<typeof updateExpenseSchema>;
 
 export const expensesRelations = relations(expenses, ({ one }) => ({

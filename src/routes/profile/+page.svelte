@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { currencies } from '$lib/server/db/currencies';
 	import { superForm } from 'sveltekit-superforms';
-	import { currencies } from '$lib/server/db/seed';
 
 	let { data } = $props();
 	const { form, errors, constraints, message, enhance } = superForm(data.form);
