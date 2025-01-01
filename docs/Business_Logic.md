@@ -268,19 +268,24 @@ const updatedCategory = {
 await categoriesService.updateCategory('category-id', updatedCategory);
 ```
 
-## Managing User Profiles
+## Managing Users
 
 ### Business Logic
 
-- Ensure that the user's preferred currency is a valid currency code (e.g., ISO 4217 currency codes).
+- Validate that the username is unique.
+- Ensure that the currency preference is a valid currency code (e.g., ISO 4217 currency codes).
 
 ### Database Modeling
 
 - Table: `users`
-  - Columns: `id`, `name`, `email`, `currency`
+  - Columns: `id`, `username`, `currency`, `created_at`, `updated_at`
 
 ### Example Queries
 
+- Create User:
+  ```sql
+  INSERT INTO users (id, username, currency, created_at, updated_at) VALUES (?, ?, ?, ?, ?);
+  ```
 - Update User Currency:
   ```sql
   UPDATE users SET currency = ? WHERE id = ?;
@@ -290,13 +295,29 @@ await categoriesService.updateCategory('category-id', updatedCategory);
 
 #### `UsersService`
 
-- `updateUserCurrency(userId: string, currency: string)`: Updates the user's preferred currency.
+- `createUser(data: InsertUser)`: Creates a new user with a currency preference.
+- `getUsers()`: Retrieves a list of all users.
+- `getUser(id: string)`: Retrieves a specific user by their ID.
+- `updateUserCurrency(id: string, currency: string)`: Updates the currency preference of a user.
 
 #### Example Usage
 
 ```typescript
 import { usersService } from '$lib/server/services/usersService';
 
-// Update user's preferred currency
-await usersService.updateUserCurrency('user-id', 'USD');
+// Create a new user
+const newUser = {
+  username: 'john_doe',
+  currency: 'USD'
+};
+await usersService.createUser(newUser);
+
+// Get a list of users
+const users = await usersService.getUsers();
+
+// Get a specific user
+const user = await usersService.getUser('user-id');
+
+// Update user currency
+await usersService.updateUserCurrency('user-id', 'EUR');
 ```

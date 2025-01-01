@@ -115,7 +115,7 @@
 						stroke-linecap="round"
 						stroke-linejoin="round"
 						stroke-width="2"
-						d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+						d="M12 14c-3.3 0-6 2.7-6 6v2h12v-2c0-3.3-2.7-6-6-6zm0-2c1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3 1.3 3 3 3z"
 					/>
 				</svg>
 				<span>Profile</span>

@@ -21,6 +21,15 @@ class UsersService {
 		}
 	}
 
+	async getUsers() {
+		try {
+			return await db.query.users.findMany();
+		} catch (error) {
+			logger.error('Error getting users:', error);
+			throw error;
+		}
+	}
+
 	async getUser(id: string) {
 		try {
 			return await db.query.users.findFirst({ where: eq(users.id, id) });
@@ -30,24 +39,10 @@ class UsersService {
 		}
 	}
 
-	async updateUser(id: string, data: UpdateUser) {
+	async updateUserCurrency(id: string, currency: string) {
 		try {
-			const parsed = Value.Parse(updateUserSchema, data);
+			const parsed = Value.Parse(updateUserSchema, { currency });
 			return await db.update(users).set(parsed).where(eq(users.id, id));
-		} catch (error) {
-			logger.error('Error updating user:', error);
-			throw error;
-		}
-	}
-
-	async updateUserCurrency(userId: string, currency: string) {
-		try {
-			// Validate the currency code
-			if (!/^[A-Z]{3}$/.test(currency)) {
-				throw new Error('Invalid currency code');
-			}
-
-			return await db.update(users).set({ currency }).where(eq(users.id, userId));
 		} catch (error) {
 			logger.error('Error updating user currency:', error);
 			throw error;

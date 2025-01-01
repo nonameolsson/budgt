@@ -5,6 +5,7 @@ import { db } from './index';
 import type { InsertAccount } from './schema/accounts';
 import type { InsertCategory } from './schema/categories';
 import type { InsertExpense } from './schema/expenses';
+import type { InsertUser } from './schema/users';
 
 const seedAccounts: InsertAccount[] = [
 	{ id: 'cc6gkcsvgvxagvry16yh74v4', name: 'Cash', balance: 1000, is_primary: true },
@@ -53,10 +54,16 @@ const seedExpenses: InsertExpense[] = [
 	}
 ];
 
+const seedUsers: InsertUser[] = [
+	{ id: 'user1', username: 'john_doe', currency: 'USD' },
+	{ id: 'user2', username: 'jane_doe', currency: 'EUR' }
+];
+
 async function seedDatabase() {
 	await db.insert(schema.accounts).values(seedAccounts);
 	await db.insert(schema.categories).values(seedCategories);
 	await db.insert(schema.expenses).values(seedExpenses);
+	await db.insert(schema.users).values(seedUsers);
 }
 
 export async function initiateSeed() {

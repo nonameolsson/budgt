@@ -8,9 +8,16 @@ export const users = sqliteTable('users', {
 		.$defaultFn(() => createId())
 		.notNull()
 		.primaryKey(),
-	name: text('name').notNull(),
-	email: text('email').notNull(),
-	currency: text('currency').notNull()
+	username: text('username').notNull(),
+	currency: text('currency').notNull(),
+	createdAt: text('created_at')
+		.notNull()
+		.default(new Date().toISOString())
+		.$onUpdateFn(() => new Date().toISOString()),
+	updatedAt: text('updated_at')
+		.notNull()
+		.default(new Date().toISOString())
+		.$onUpdateFn(() => new Date().toISOString())
 });
 
 export const insertUserSchema = createInsertSchema(users);

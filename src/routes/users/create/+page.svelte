@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms';
+	import { currencies } from '$lib/server/db/seed';
 
 	let { data } = $props();
 	const { form, errors, constraints, message, enhance } = superForm(data.form);
@@ -15,30 +16,17 @@
 		class="space-y-4 rounded-lg bg-white p-6 shadow-md"
 	>
 		<input
-			bind:value={$form.name}
+			bind:value={$form.username}
 			type="text"
 			required
-			name="name"
+			name="username"
 			placeholder="Username"
 			class="w-full rounded border border-gray-300 p-2"
-			aria-invalid={$errors.name ? 'true' : undefined}
-			{...$constraints.name}
+			aria-invalid={$errors.username ? 'true' : undefined}
+			{...$constraints.username}
 		/>
-		{#if $errors.name}
-			<p class="text-red-500">{$errors.name}</p>
-		{/if}
-		<input
-			bind:value={$form.email}
-			type="email"
-			required
-			name="email"
-			placeholder="Email"
-			class="w-full rounded border border-gray-300 p-2"
-			aria-invalid={$errors.email ? 'true' : undefined}
-			{...$constraints.email}
-		/>
-		{#if $errors.email}
-			<p class="text-red-500">{$errors.email}</p>
+		{#if $errors.username}
+			<p class="text-red-500">{$errors.username}</p>
 		{/if}
 		<select
 			bind:value={$form.currency}
@@ -48,32 +36,19 @@
 			aria-invalid={$errors.currency ? 'true' : undefined}
 			{...$constraints.currency}
 		>
-			<option value="" disabled selected>Select Currency</option>
-			{#each data.currencies as { code, name }}
-				<option value={code}>{name}</option>
+			{#each currencies as currency}
+				<option value={currency.code}>{currency.name}</option>
 			{/each}
 		</select>
 		{#if $errors.currency}
 			<p class="text-red-500">{$errors.currency}</p>
 		{/if}
 		<div class="flex justify-between">
-			<a href="/users" class="rounded bg-gray-500 p-2 text-white">Cancel</a>
+			<a href="/" class="rounded bg-gray-500 p-2 text-white">Cancel</a>
 			<button type="submit" class="rounded bg-blue-500 p-2 text-white">Create</button>
 		</div>
 	</form>
 </div>
 
 <style>
-	/* Add responsive styles */
-	@media (max-width: 640px) {
-		.container {
-			padding: 1rem;
-		}
-		h1 {
-			font-size: 2rem;
-		}
-		form {
-			padding: 1rem;
-		}
-	}
 </style>
