@@ -1,4 +1,4 @@
-import { currencies } from '$lib/server/db/currencies';
+import { currenciesService } from '$lib/server/services/currenciesService';
 import { usersService } from '$lib/server/services/usersService';
 import { Type } from '@sinclair/typebox';
 import { superValidate } from 'sveltekit-superforms';
@@ -12,6 +12,8 @@ const FormSchema = Type.Object({
 
 export const load: PageServerLoad = async () => {
 	const form = await superValidate(typebox(FormSchema));
+	const currencies = await currenciesService.getCurrencies();
+
 	return { currencies, form };
 };
 

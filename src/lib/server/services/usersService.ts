@@ -2,9 +2,9 @@ import { Value } from '@sinclair/typebox/value';
 import { eq } from 'drizzle-orm';
 import { db } from '../db';
 import {
-	users,
 	insertUserSchema,
 	updateUserSchema,
+	users,
 	type InsertUser,
 	type UpdateUser
 } from '../db/schema/users';
@@ -35,6 +35,22 @@ class UsersService {
 			return await db.query.users.findFirst({ where: eq(users.id, id) });
 		} catch (error) {
 			logger.error('Error getting user:', error);
+			throw error;
+		}
+	}
+
+	async updateUser(id: string, data: UpdateUser) {
+		try {
+			const parsed = Value.Parse(updateUserSchema, data);
+			return await db.update(users).set(parsed).where(eq(users.id, id)).returning({
+				id: users.id,
+				username: users.username,
+				currency: users.currency,
+				updatedAt: users.updatedAt,
+				createdAt: users.createdAt
+			});
+		} catch (error) {
+			logger.error('Error updating user:', error);
 			throw error;
 		}
 	}

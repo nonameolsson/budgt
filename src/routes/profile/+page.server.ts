@@ -1,29 +1,36 @@
-import { currencies } from '$lib/server/db/currencies';
+import { selectUserSchema, updateUserSchema, type UpdateUser } from '$lib/server/db/schema';
+
+import { currenciesService } from '$lib/server/services/currenciesService';
 import { usersService } from '$lib/server/services/usersService';
-import { Type } from '@sinclair/typebox';
 import { superValidate } from 'sveltekit-superforms';
 import { typebox } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 
-const FormSchema = Type.Object({
-	currency: Type.String()
-});
+const userId = 'joav0k5hllvot1d9pk77np3d'; // TODO: Make this dynamic based on the user's session
 
-export const load: PageServerLoad = async ({ params }) => {
-	const user = await usersService.getUser(params.id);
-	const form = await superValidate(user, typebox(FormSchema));
+export const load: PageServerLoad = async () => {
+	const user = await usersService.getUser(userId);
+	const currencies = await currenciesService.getCurrencies();
+	const form = await superValidate(user, typebox(selectUserSchema));
+
 	return { form, currencies };
 };
 
 export const actions: Actions = {
-	updateCurrency: async ({ request, params }) => {
-		const form = await superValidate(request, typebox(FormSchema));
+	updateUser: async ({ request }) => {
+		const form = await superValidate(request, typebox(updateUserSchema));
 
 		if (!form.valid) {
 			return { form };
 		}
 
-		await usersService.updateUserCurrency(params.id, form.data.currency);
+		const user: UpdateUser = {
+			username: form.data.username,
+			currency: form.data.currency
+		};
+
+		await usersService.updateUser(userId, user);
+
 		return { form };
 	}
 };

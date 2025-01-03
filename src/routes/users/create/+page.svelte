@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { currencies } from '$lib/server/db/currencies';
 	import { superForm } from 'sveltekit-superforms';
 
 	let { data } = $props();
@@ -36,7 +35,7 @@
 			aria-invalid={$errors.currency ? 'true' : undefined}
 			{...$constraints.currency}
 		>
-			{#each currencies as currency}
+			{#each data.currencies as currency}
 				<option value={currency.code}>{currency.name}</option>
 			{/each}
 		</select>

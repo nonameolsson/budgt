@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { currencies } from '$lib/server/db/currencies';
 	import { superForm } from 'sveltekit-superforms';
 
 	let { data } = $props();
-	const { form, errors, constraints, message, enhance } = superForm(data.form);
+	const { form, errors, constraints, message, enhance } = superForm(data.form, {
+		resetForm: false
+	});
 </script>
 
 <div class="container mx-auto p-4">
@@ -12,9 +13,21 @@
 	<form
 		method="POST"
 		use:enhance
-		action="?/updateCurrency"
+		action="?/updateUser"
 		class="space-y-4 rounded-lg bg-white p-6 shadow-md"
 	>
+		<label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+		<input
+			type="text"
+			bind:value={$form.username}
+			name="username"
+			aria-invalid={$errors.username ? 'true' : undefined}
+			class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+			{...$constraints.username}
+		/>
+		{#if $errors.username}
+			<p class="mt-2 text-sm text-red-600">{$errors.username}</p>
+		{/if}
 		<select
 			bind:value={$form.currency}
 			name="currency"
@@ -23,7 +36,7 @@
 			aria-invalid={$errors.currency ? 'true' : undefined}
 			{...$constraints.currency}
 		>
-			{#each currencies as currency}
+			{#each data.currencies as currency}
 				<option value={currency.code}>{currency.name}</option>
 			{/each}
 		</select>
