@@ -45,11 +45,11 @@ import { expensesService } from '$lib/server/services/expensesService';
 
 // Create a new expense
 const newExpense = {
-  amount: 50,
-  description: 'Groceries',
-  date: new Date().toISOString(),
-  accountId: 'account-id',
-  categoryId: 'category-id'
+	amount: 50,
+	description: 'Groceries',
+	date: new Date().toISOString(),
+	accountId: 'account-id',
+	categoryId: 'category-id'
 };
 await expensesService.createExpense(newExpense);
 
@@ -64,8 +64,8 @@ await expensesService.deleteExpense('expense-id');
 
 // Update an expense
 const updatedExpense = {
-  amount: 60,
-  description: 'Groceries and snacks'
+	amount: 60,
+	description: 'Groceries and snacks'
 };
 await expensesService.updateExpense('expense-id', updatedExpense);
 ```
@@ -115,10 +115,10 @@ import { incomeService } from '$lib/server/services/incomeService';
 
 // Create a new income
 const newIncome = {
-  amount: 1000,
-  description: 'Salary',
-  date: new Date().toISOString(),
-  accountId: 'account-id'
+	amount: 1000,
+	description: 'Salary',
+	date: new Date().toISOString(),
+	accountId: 'account-id'
 };
 await incomeService.createIncome(newIncome);
 
@@ -133,8 +133,8 @@ await incomeService.deleteIncome('income-id');
 
 // Update an income
 const updatedIncome = {
-  amount: 1200,
-  description: 'Salary with bonus'
+	amount: 1200,
+	description: 'Salary with bonus'
 };
 await incomeService.updateIncome('income-id', updatedIncome);
 ```
@@ -187,8 +187,8 @@ import { accountService } from '$lib/server/services/accountsService';
 
 // Create a new account
 const newAccount = {
-  name: 'Savings',
-  balance: 5000
+	name: 'Savings',
+	balance: 5000
 };
 await accountService.createAccount(newAccount);
 
@@ -203,8 +203,8 @@ await accountService.deleteAccount('account-id');
 
 // Update an account
 const updatedAccount = {
-  name: 'Emergency Fund',
-  balance: 6000
+	name: 'Emergency Fund',
+	balance: 6000
 };
 await accountService.updateAccount('account-id', updatedAccount);
 ```
@@ -248,7 +248,7 @@ import { categoriesService } from '$lib/server/services/categoriesService';
 
 // Create a new category
 const newCategory = {
-  name: 'Food'
+	name: 'Food'
 };
 await categoriesService.createCategory(newCategory);
 
@@ -263,7 +263,7 @@ await categoriesService.deleteCategory('category-id');
 
 // Update a category
 const updatedCategory = {
-  name: 'Groceries'
+	name: 'Groceries'
 };
 await categoriesService.updateCategory('category-id', updatedCategory);
 ```
@@ -307,8 +307,8 @@ import { usersService } from '$lib/server/services/usersService';
 
 // Create a new user
 const newUser = {
-  username: 'john_doe',
-  currency: 'USD'
+	username: 'john_doe',
+	currency: 'USD'
 };
 await usersService.createUser(newUser);
 

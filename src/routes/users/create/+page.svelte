@@ -28,19 +28,21 @@
 			<p class="text-red-500">{$errors.username}</p>
 		{/if}
 		<select
-			bind:value={$form.currency}
+			bind:value={$form.currencyCode}
 			name="currency"
 			required
 			class="w-full rounded border border-gray-300 p-2"
-			aria-invalid={$errors.currency ? 'true' : undefined}
-			{...$constraints.currency}
+			aria-invalid={$errors.currencyCode ? 'true' : undefined}
+			{...$constraints.currencyCode}
 		>
 			{#each data.currencies as currency}
 				<option value={currency.code}>{currency.name}</option>
 			{/each}
 		</select>
-		{#if $errors.currency}
-			<p class="text-red-500">{$errors.currency}</p>
+		{#if $errors.currencyCode}
+			<p class="text-red-500">{$errors.currencyCode}</p>
+			git add
+			<div class=""></div>
 		{/if}
 		<div class="flex justify-between">
 			<a href="/" class="rounded bg-gray-500 p-2 text-white">Cancel</a>

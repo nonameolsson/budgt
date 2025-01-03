@@ -56,8 +56,8 @@ const seedExpenses: InsertExpense[] = [
 ];
 
 const seedUsers: InsertUser[] = [
-	{ id: 'fjds83kslsjs0vlks9dl3kaa3', username: 'john_doe', currency: 'USD' },
-	{ id: 'kls0cm2mslanzkltzke0sk338', username: 'jane_doe', currency: 'EUR' }
+	{ id: 'fjds83kslsjs0vlks9dl3kaa3', username: 'john_doe', currencyCode: 'USD' },
+	{ id: 'kls0cm2mslanzkltzke0sk338', username: 'jane_doe', currencyCode: 'EUR' }
 ];
 
 const seedCurrencies: InsertCurrency[] = [

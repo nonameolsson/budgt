@@ -6,13 +6,13 @@ import { superValidate } from 'sveltekit-superforms';
 import { typebox } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 
-const userId = 'joav0k5hllvot1d9pk77np3d'; // TODO: Make this dynamic based on the user's session
+const userId = 'fjds83kslsjs0vlks9dl3kaa3'; // TODO: Make this dynamic based on the user's session
 
 export const load: PageServerLoad = async () => {
 	const user = await usersService.getUser(userId);
 	const currencies = await currenciesService.getCurrencies();
 	const form = await superValidate(user, typebox(selectUserSchema));
-
+	console.log(form);
 	return { form, currencies };
 };
 
@@ -26,7 +26,7 @@ export const actions: Actions = {
 
 		const user: UpdateUser = {
 			username: form.data.username,
-			currency: form.data.currency
+			currencyCode: form.data.currencyCode
 		};
 
 		await usersService.updateUser(userId, user);

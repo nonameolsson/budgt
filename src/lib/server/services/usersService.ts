@@ -32,7 +32,14 @@ class UsersService {
 
 	async getUser(id: string) {
 		try {
-			return await db.query.users.findFirst({ where: eq(users.id, id) });
+			const result = await db.query.users.findFirst({
+				where: eq(users.id, id),
+				with: {
+					currency: true
+				}
+			});
+
+			return result;
 		} catch (error) {
 			logger.error('Error getting user:', error);
 			throw error;
@@ -45,7 +52,7 @@ class UsersService {
 			return await db.update(users).set(parsed).where(eq(users.id, id)).returning({
 				id: users.id,
 				username: users.username,
-				currency: users.currency,
+				currency: users.currencyCode,
 				updatedAt: users.updatedAt,
 				createdAt: users.createdAt
 			});
