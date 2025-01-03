@@ -1,8 +1,8 @@
 {
 	"version": "6",
 	"dialect": "sqlite",
-	"id": "9aef2f04-3eab-4101-8cae-fa176c9a041d",
-	"prevId": "9d0cb8a6-1c50-48c9-bea5-47b1b3551aa8",
+	"id": "a165d2a9-9a1e-49d2-9cdc-a0437df986d7",
+	"prevId": "af4ad651-c136-48f1-8ae4-ae6cb50c539a",
 	"tables": {
 		"accounts": {
 			"name": "accounts",
@@ -41,7 +41,7 @@
 					"primaryKey": false,
 					"notNull": true,
 					"autoincrement": false,
-					"default": "'2024-12-31T11:23:48.133Z'"
+					"default": "'2025-01-03T17:16:27.475Z'"
 				},
 				"is_primary": {
 					"name": "is_primary",
@@ -81,7 +81,7 @@
 					"primaryKey": false,
 					"notNull": true,
 					"autoincrement": false,
-					"default": "'2024-12-31T11:23:48.130Z'"
+					"default": "'2025-01-03T17:16:27.472Z'"
 				},
 				"updated_at": {
 					"name": "updated_at",
@@ -89,7 +89,38 @@
 					"primaryKey": false,
 					"notNull": true,
 					"autoincrement": false,
-					"default": "'2024-12-31T11:23:48.131Z'"
+					"default": "'2025-01-03T17:16:27.473Z'"
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {},
+			"checkConstraints": {}
+		},
+		"currencies": {
+			"name": "currencies",
+			"columns": {
+				"code": {
+					"name": "code",
+					"type": "text",
+					"primaryKey": true,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"name": {
+					"name": "name",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"symbol": {
+					"name": "symbol",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
 				}
 			},
 			"indexes": {},
@@ -128,7 +159,7 @@
 					"primaryKey": false,
 					"notNull": true,
 					"autoincrement": false,
-					"default": "'2024-12-31T11:23:48.132Z'"
+					"default": "'2025-01-03T17:16:27.474Z'"
 				},
 				"created_at": {
 					"name": "created_at",
@@ -136,7 +167,7 @@
 					"primaryKey": false,
 					"notNull": true,
 					"autoincrement": false,
-					"default": "'2024-12-31T11:23:48.132Z'"
+					"default": "'2025-01-03T17:16:27.474Z'"
 				},
 				"updated_at": {
 					"name": "updated_at",
@@ -144,7 +175,7 @@
 					"primaryKey": false,
 					"notNull": true,
 					"autoincrement": false,
-					"default": "'2024-12-31T11:23:48.132Z'"
+					"default": "'2025-01-03T17:16:27.474Z'"
 				},
 				"account_id": {
 					"name": "account_id",
@@ -159,6 +190,53 @@
 					"primaryKey": false,
 					"notNull": true,
 					"autoincrement": false
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {},
+			"checkConstraints": {}
+		},
+		"users": {
+			"name": "users",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "text",
+					"primaryKey": true,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"username": {
+					"name": "username",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"currency_code": {
+					"name": "currency_code",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false
+				},
+				"created_at": {
+					"name": "created_at",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false,
+					"default": "'2025-01-03T17:16:27.481Z'"
+				},
+				"updated_at": {
+					"name": "updated_at",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true,
+					"autoincrement": false,
+					"default": "'2025-01-03T17:16:27.481Z'"
 				}
 			},
 			"indexes": {},
