@@ -17,11 +17,11 @@ import { expensesService } from '$lib/server/services/expensesService';
 
 // Add a new expense
 const newExpense = {
-  amount: 50,
-  description: 'Groceries',
-  date: new Date().toISOString(),
-  accountId: 'account-id',
-  categoryId: 'category-id'
+	amount: 50,
+	description: 'Groceries',
+	date: new Date().toISOString(),
+	accountId: 'account-id',
+	categoryId: 'category-id'
 };
 await expensesService.createExpense(newExpense);
 
@@ -33,12 +33,12 @@ await expensesService.deleteExpense('expense-id');
 
 // Categorize an expense
 const updatedExpense = {
-  categoryId: 'new-category-id'
+	categoryId: 'new-category-id'
 };
 await expensesService.updateExpense('expense-id', updatedExpense);
 
 // Filter expenses by category
-const filteredExpenses = expenses.filter(expense => expense.categoryId === 'category-id');
+const filteredExpenses = expenses.filter((expense) => expense.categoryId === 'category-id');
 ```
 
 ## Managing Income
@@ -56,10 +56,10 @@ import { incomeService } from '$lib/server/services/incomeService';
 
 // Add a new income source
 const newIncome = {
-  amount: 1000,
-  description: 'Salary',
-  date: new Date().toISOString(),
-  accountId: 'account-id'
+	amount: 1000,
+	description: 'Salary',
+	date: new Date().toISOString(),
+	accountId: 'account-id'
 };
 await incomeService.createIncome(newIncome);
 
@@ -86,8 +86,8 @@ import { accountService } from '$lib/server/services/accountsService';
 
 // Create a new account
 const newAccount = {
-  name: 'Savings',
-  balance: 5000
+	name: 'Savings',
+	balance: 5000
 };
 await accountService.createAccount(newAccount);
 
@@ -99,7 +99,7 @@ await accountService.deleteAccount('account-id');
 
 // Set an account as the primary account
 const updatedAccount = {
-  is_primary: true
+	is_primary: true
 };
 await accountService.updateAccount('account-id', updatedAccount);
 ```
@@ -119,7 +119,7 @@ import { categoriesService } from '$lib/server/services/categoriesService';
 
 // Create a new category
 const newCategory = {
-  name: 'Food'
+	name: 'Food'
 };
 await categoriesService.createCategory(newCategory);
 

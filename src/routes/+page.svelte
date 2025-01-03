@@ -11,7 +11,7 @@
 			<li class="flex flex-col rounded-lg bg-white p-4 shadow-md">
 				<div class="flex justify-between text-gray-600">
 					<span class="font-medium">{expense.date}</span>
-					<span class="font-medium">${expense.amount.toFixed(2)}</span>
+					<span class="font-medium">{expense.amount.toFixed(2)}{data.currency?.symbol}</span>
 				</div>
 				<p class="mt-2 text-gray-800">{expense.description}</p>
 				<div class="mt-2 flex justify-between text-sm text-gray-500">

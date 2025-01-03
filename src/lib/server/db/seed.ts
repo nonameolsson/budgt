@@ -4,7 +4,9 @@ import { logger } from '../logger';
 import { db } from './index';
 import type { InsertAccount } from './schema/accounts';
 import type { InsertCategory } from './schema/categories';
+import type { InsertCurrency } from './schema/currencies';
 import type { InsertExpense } from './schema/expenses';
+import type { InsertUser } from './schema/users';
 
 const seedAccounts: InsertAccount[] = [
 	{ id: 'cc6gkcsvgvxagvry16yh74v4', name: 'Cash', balance: 1000, is_primary: true },
@@ -53,10 +55,24 @@ const seedExpenses: InsertExpense[] = [
 	}
 ];
 
+const seedUsers: InsertUser[] = [
+	{ id: 'fjds83kslsjs0vlks9dl3kaa3', username: 'john_doe', currencyCode: 'USD' },
+	{ id: 'kls0cm2mslanzkltzke0sk338', username: 'jane_doe', currencyCode: 'EUR' }
+];
+
+const seedCurrencies: InsertCurrency[] = [
+	{ code: 'USD', name: 'United States Dollar', symbol: '$' },
+	{ code: 'EUR', name: 'Euro', symbol: '€' },
+	{ code: 'GBP', name: 'British Pound', symbol: '£' },
+	{ code: 'SEK', name: 'Swedish Krona', symbol: 'kr' }
+];
+
 async function seedDatabase() {
 	await db.insert(schema.accounts).values(seedAccounts);
 	await db.insert(schema.categories).values(seedCategories);
 	await db.insert(schema.expenses).values(seedExpenses);
+	await db.insert(schema.users).values(seedUsers);
+	await db.insert(schema.currencies).values(seedCurrencies);
 }
 
 export async function initiateSeed() {
@@ -73,7 +89,7 @@ export async function initiateSeed() {
 export async function resetDatabase() {
 	try {
 		console.log('Resetting database...');
-		// @ts-expect-error - The types of the databse reset function are not correct
+		// @ts-expect-error - The types of the database reset function are not correct
 		await reset(db, schema);
 		console.log('Database reset successfully');
 	} catch (error) {
