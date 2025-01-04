@@ -1,14 +1,22 @@
 import { dev } from '$app/environment';
 import { BETTERSTACK_TOKEN, LOG_LEVEL } from '$env/static/private';
-import { pino } from 'pino';
+import pino from 'pino';
 
 const devLoggerConfig = {
-	level: 'debug',
+	level: 'trace',
 	transport: {
-		target: 'pino-pretty',
-		options: {
-			colorize: true
-		}
+		targets: [
+			{
+				target: 'pino/file',
+				options: { destination: 'server.log' }
+			},
+			{
+				target: 'pino-pretty',
+				options: {
+					colorize: true
+				}
+			}
+		]
 	}
 };
 
