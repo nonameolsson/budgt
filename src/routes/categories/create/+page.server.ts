@@ -19,7 +19,8 @@ export const actions: Actions = {
 		}
 
 		const newCategory: InsertCategory = {
-			name: form.data.name
+			name: form.data.name,
+			type: form.data.type
 		};
 
 		await categoriesService.createCategory(newCategory);
