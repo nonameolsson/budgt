@@ -18,7 +18,8 @@ export const categories = sqliteTable('categories', {
 	updatedAt: text('updated_at')
 		.notNull()
 		.default(new Date().toISOString())
-		.$onUpdateFn(() => new Date().toISOString())
+		.$onUpdateFn(() => new Date().toISOString()),
+	type: text('type').notNull()
 });
 
 export const insertCategorySchema = createInsertSchema(categories);

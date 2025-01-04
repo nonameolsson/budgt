@@ -26,6 +26,20 @@
 		{#if $errors.name}
 			<p class="text-red-500">{$errors.name}</p>
 		{/if}
+		<select
+			bind:value={$form.type}
+			name="type"
+			class="w-full rounded border border-gray-300 p-2"
+			aria-invalid={$errors.type ? 'true' : undefined}
+			{...$constraints.type}
+		>
+			<option value="" disabled selected>Select Category Type</option>
+			<option value="income">Income</option>
+			<option value="expense">Expense</option>
+		</select>
+		{#if $errors.type}
+			<p class="text-red-500">{$errors.type}</p>
+		{/if}
 		<div class="flex justify-between">
 			<a href="/categories" class="rounded bg-gray-500 p-2 text-white">Cancel</a>
 			<button type="submit" class="rounded bg-blue-500 p-2 text-white">Add</button>
