@@ -1,26 +1,27 @@
-import pino from 'pino';
-const token = '7Kaz7yzi9f6aPkMhTomCtWVv';
+import { dev } from '$app/environment';
+import { BETTERSTACK_TOKEN, LOG_LEVEL } from '$env/static/private';
+import { pino } from 'pino';
 
-// const transport = pino.transport({
-// 	target: '@logtail/pino',
-// 	options: { sourceToken: token }
-// });
+const devLoggerConfig = {
+	level: 'debug',
+	transport: {
+		target: 'pino-pretty',
+		options: {
+			colorize: true
+		}
+	}
+};
 
-const logger = pino({
-	level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+const prodLoggerConfig = {
+	name: 'Budgt',
+	level: LOG_LEVEL,
 	transport: {
 		target: '@logtail/pino',
-		options: { sourceToken: token }
+		options: { sourceToken: BETTERSTACK_TOKEN }
 	}
-	// transport:
-	// 	process.env.NODE_ENV !== 'production'
-	// 		? {
-	// 				target: 'pino-pretty',
-	// 				options: {
-	// 					colorize: true
-	// 				}
-	// 			}
-	// 		: undefined
-});
+};
+
+const loggerConfig = dev ? devLoggerConfig : prodLoggerConfig;
+const logger = pino(loggerConfig);
 
 export { logger };

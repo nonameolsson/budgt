@@ -15,7 +15,7 @@ class CategoriesService {
 			const parsed = Value.Parse(insertCategorySchema, data);
 			return await db.insert(categories).values(parsed);
 		} catch (error) {
-			logger.error('Error creating income category:', error);
+			logger.error(error, 'Error creating income category:');
 			throw error;
 		}
 	}
@@ -24,7 +24,7 @@ class CategoriesService {
 		try {
 			return await db.query.categories.findFirst({ where: eq(categories.id, id) });
 		} catch (error) {
-			logger.error('Error getting income category:', error);
+			logger.error(error, 'Error getting income category:');
 			throw error;
 		}
 	}
@@ -33,7 +33,10 @@ class CategoriesService {
 		try {
 			return await db.query.categories.findMany();
 		} catch (error) {
-			logger.error('Error getting income categories:', error);
+			const childLogger = logger.child({ userId: 'andras' });
+			childLogger.trace('getCategories called');
+
+			// logger.error(error, 'Error getting income categories:');
 			throw error;
 		}
 	}
@@ -43,7 +46,7 @@ class CategoriesService {
 			const parsed = Value.Parse(insertCategorySchema, data);
 			return await db.update(categories).set(parsed).where(eq(categories.id, id));
 		} catch (error) {
-			logger.error('Error updating income category:', error);
+			logger.error(error, 'Error updating income category:');
 			throw error;
 		}
 	}
@@ -52,7 +55,7 @@ class CategoriesService {
 		try {
 			return await db.delete(categories).where(eq(categories.id, id));
 		} catch (error) {
-			logger.error('Error deleting income category:', error);
+			logger.error(error, 'Error deleting income category:');
 			throw error;
 		}
 	}
