@@ -11,15 +11,17 @@
 ### Database Modeling
 
 - Table: `expenses`
-  - Columns: `id`, `amount`, `description`, `date`, `created_at`, `accountId`
+  - Columns: `id`, `amount`, `description`, `date`, `created_at`, `accountId`, `categoryId`
 - Table: `accounts`
   - Columns: `id`, `name`, `balance`
+- Table: `categories`
+  - Columns: `id`, `name`, `created_at`, `updated_at`, `type`
 
 ### Example Queries
 
 - Create Expense:
   ```sql
-  INSERT INTO expenses (id, amount, description, date, created_at, accountId) VALUES (?, ?, ?, ?, ?, ?);
+  INSERT INTO expenses (id, amount, description, date, created_at, accountId, categoryId) VALUES (?, ?, ?, ?, ?, ?, ?);
   UPDATE accounts SET balance = balance - ? WHERE id = ?;
   ```
 - Delete Expense:
@@ -81,15 +83,17 @@ await expensesService.updateExpense('expense-id', updatedExpense);
 ### Database Modeling
 
 - Table: `income`
-  - Columns: `id`, `amount`, `description`, `date`, `created_at`, `accountId`
+  - Columns: `id`, `amount`, `description`, `date`, `created_at`, `accountId`, `categoryId`
 - Table: `accounts`
   - Columns: `id`, `name`, `balance`
+- Table: `categories`
+  - Columns: `id`, `name`, `created_at`, `updated_at`, `type`
 
 ### Example Queries
 
 - Create Income:
   ```sql
-  INSERT INTO income (id, amount, description, date, created_at, accountId) VALUES (?, ?, ?, ?, ?, ?);
+  INSERT INTO income (id, amount, description, date, created_at, accountId, categoryId) VALUES (?, ?, ?, ?, ?, ?, ?);
   UPDATE accounts SET balance = balance + ? WHERE id = ?;
   ```
 - Delete Income:
@@ -118,7 +122,8 @@ const newIncome = {
 	amount: 1000,
 	description: 'Salary',
 	date: new Date().toISOString(),
-	accountId: 'account-id'
+	accountId: 'account-id',
+	categoryId: 'category-id'
 };
 await incomeService.createIncome(newIncome);
 
@@ -218,13 +223,13 @@ await accountService.updateAccount('account-id', updatedAccount);
 ### Database Modeling
 
 - Table: `categories`
-  - Columns: `id`, `name`, `created_at`, `updated_at`
+  - Columns: `id`, `name`, `created_at`, `updated_at`, `type`
 
 ### Example Queries
 
 - Create Category:
   ```sql
-  INSERT INTO categories (id, name, created_at, updated_at) VALUES (?, ?, ?, ?);
+  INSERT INTO categories (id, name, created_at, updated_at, type) VALUES (?, ?, ?, ?, ?);
   ```
 - Delete Category:
   ```sql

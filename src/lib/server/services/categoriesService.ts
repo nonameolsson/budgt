@@ -4,11 +4,9 @@ import { db } from '../db';
 import {
 	categories,
 	insertCategorySchema,
-	updateCategorySchema,
 	type InsertCategory,
 	type UpdateCategory
 } from '../db/schema/categories';
-import { expenses } from '../db/schema/expenses';
 import { logger } from '../logger';
 
 class CategoriesService {
@@ -17,7 +15,7 @@ class CategoriesService {
 			const parsed = Value.Parse(insertCategorySchema, data);
 			return await db.insert(categories).values(parsed);
 		} catch (error) {
-			logger.error('Error creating category:', error);
+			logger.error('Error creating income category:', error);
 			throw error;
 		}
 	}
@@ -26,7 +24,7 @@ class CategoriesService {
 		try {
 			return await db.query.categories.findFirst({ where: eq(categories.id, id) });
 		} catch (error) {
-			logger.error('Error getting category:', error);
+			logger.error('Error getting income category:', error);
 			throw error;
 		}
 	}
@@ -35,27 +33,26 @@ class CategoriesService {
 		try {
 			return await db.query.categories.findMany();
 		} catch (error) {
-			logger.error('Error getting categories:', error);
-			throw error;
-		}
-	}
-
-	async deleteCategory(id: string) {
-		try {
-			await db.delete(expenses).where(eq(expenses.categoryId, id));
-			return await db.delete(categories).where(eq(categories.id, id));
-		} catch (error) {
-			logger.error('Error deleting category:', error);
+			logger.error('Error getting income categories:', error);
 			throw error;
 		}
 	}
 
 	async updateCategory(id: string, data: UpdateCategory) {
 		try {
-			const parsed = Value.Parse(updateCategorySchema, data);
+			const parsed = Value.Parse(insertCategorySchema, data);
 			return await db.update(categories).set(parsed).where(eq(categories.id, id));
 		} catch (error) {
-			logger.error('Error updating category:', error);
+			logger.error('Error updating income category:', error);
+			throw error;
+		}
+	}
+
+	async deleteCategory(id: string) {
+		try {
+			return await db.delete(categories).where(eq(categories.id, id));
+		} catch (error) {
+			logger.error('Error deleting income category:', error);
 			throw error;
 		}
 	}
