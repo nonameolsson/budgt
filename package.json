@@ -21,6 +21,7 @@
 		"db:check": "drizzle-kit check",
 		"db:studio": "drizzle-kit studio",
 		"db:generate": "drizzle-kit generate",
+		"db:create-local": "sh ./scripts/local-db.sh",
 		"prepare": "husky",
 		"test": "vitest",
 		"test:watch": "vitest --watch"
