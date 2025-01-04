@@ -12,7 +12,7 @@ export default defineConfig({
 
 	out: './migrations',
 
-	verbose: true,
+	verbose: process.env.NODE_ENV === 'development',
 	strict: true,
 	dialect: 'turso'
 });
