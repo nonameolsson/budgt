@@ -1,5 +1,6 @@
 import { dev } from '$app/environment';
 import { BETTERSTACK_TOKEN, LOG_LEVEL } from '$env/static/private';
+import '@logtail/pino';
 import pino from 'pino';
 import 'pino-pretty';
 
