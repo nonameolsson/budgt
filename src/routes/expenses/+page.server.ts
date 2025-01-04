@@ -6,6 +6,7 @@ import type { Actions, PageServerLoad } from './$types';
 export const load: PageServerLoad = async () => {
 	const expenses = await expensesService.getExpenses();
 	const categories = await categoriesService.getCategories();
+
 	return { expenses, categories };
 };
 

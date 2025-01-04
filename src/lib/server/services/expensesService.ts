@@ -37,24 +37,18 @@ class ExpensesService {
 				.where(eq(accounts.id, parsed.accountId));
 		} catch (error) {
 			logger.error('Error creating expense:', error);
-			throw new Error('Error creating expense');
 		}
 	}
 
 	async getExpenses(limit?: number) {
-		try {
-			return await db.query.expenses.findMany({
-				with: {
-					account: true,
-					category: true
-				},
-				orderBy: desc(expenses.date),
-				limit
-			});
-		} catch (error) {
-			logger.error('Error fetching expenses:', error);
-			throw new Error('Error fetching expenses');
-		}
+		return await db.query.expenses.findMany({
+			with: {
+				account: true,
+				category: true
+			},
+			orderBy: desc(expenses.date),
+			limit
+		});
 	}
 
 	async getExpense(id: string) {
@@ -62,7 +56,6 @@ class ExpensesService {
 			return await db.query.expenses.findFirst({ where: eq(expenses.id, id) });
 		} catch (error) {
 			logger.error('Error getting expense:', error);
-			throw new Error('Error getting expense');
 		}
 	}
 
@@ -84,7 +77,6 @@ class ExpensesService {
 				.where(eq(accounts.id, parsedExpense.accountId));
 		} catch (error) {
 			logger.error('Error deleting expense:', error);
-			throw new Error('Error deleting expense');
 		}
 	}
 
@@ -94,7 +86,6 @@ class ExpensesService {
 			await db.update(expenses).set(parsed).where(eq(expenses.id, id));
 		} catch (error) {
 			logger.error('Error updating expense:', error);
-			throw new Error('Error updating expense');
 		}
 	}
 }
