@@ -63,7 +63,6 @@
 		"@libsql/client": "^0.14.0",
 		"@logtail/pino": "^0.5.2",
 		"@paralleldrive/cuid2": "^2.2.2",
-		"@sveltejs/adapter-node": "^5.2.11",
 		"@tailwindcss/container-queries": "^0.1.1",
 		"@tailwindcss/forms": "^0.5.9",
 		"@tailwindcss/typography": "^0.5.15",
