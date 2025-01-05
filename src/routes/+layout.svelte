@@ -77,9 +77,9 @@
 		</li>
 		<li>
 			<a
-				href="/expenses"
+				href="/transactions"
 				class="flex flex-col items-center rounded-md px-3 py-2 text-sm font-medium text-white hover:bg-gray-700"
-				class:active={page.url.pathname === '/expenses'}
+				class:active={page.url.pathname === '/transactions'}
 			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +95,7 @@
 						d="M12 8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 10c-4.4 0-8-1.8-8-4V6c0-2.2 3.6-4 8-4s8 1.8 8 4v8c0 2.2-3.6 4-8 4z"
 					/>
 				</svg>
-				<span>Expenses</span>
+				<span>Transactions</span>
 			</a>
 		</li>
 		<li>
