@@ -1,0 +1,19 @@
+name: Create Database
+on: create
+
+jobs:
+  triggerAPI:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Branch Name
+        id: branch_name
+        run: |
+          BRANCH_NAME=$(echo "${{ github.ref_name }}" | tr -cd '[:alnum:]' | sed 's/./\L&/g' | cut -c 1-32)
+          echo "::set-output name=branch_name::$BRANCH_NAME"
+      - name: Create Database
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.API_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{"name": "${{ steps.branch_name.outputs.branch_name }}", "group": "default", "seed": {"type": "database", "name": "${{ secrets.DATABASE_NAME }}"} }' \
+          "https://api.turso.tech/v1/organizations/${{ secrets.ORGANIZATION_NAME }}/databases"
