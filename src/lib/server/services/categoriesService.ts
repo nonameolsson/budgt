@@ -41,6 +41,15 @@ class CategoriesService {
 		}
 	}
 
+	async getCategoryByType(type: 'expense' | 'income') {
+		try {
+			return await db.query.categories.findMany({ where: eq(categories.type, type) });
+		} catch (error) {
+			logger.error(error, 'Error getting income category by type:');
+			throw error;
+		}
+	}
+
 	async updateCategory(id: string, data: UpdateCategory) {
 		try {
 			const parsed = Value.Parse(insertCategorySchema, data);

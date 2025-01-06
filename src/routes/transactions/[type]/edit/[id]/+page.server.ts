@@ -1,4 +1,5 @@
 import { db } from '$lib/server/db';
+import { updateIncomeSchema } from '$lib/server/db/schema';
 import { updateExpenseSchema, type UpdateExpense } from '$lib/server/db/schema/expenses';
 import { categoriesService } from '$lib/server/services/categoriesService';
 import { expensesService } from '$lib/server/services/expensesService';
@@ -8,11 +9,13 @@ import { typebox } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
+	const transactionType = (params.type = params.type as 'income' | 'expense');
+
 	const expense = await expensesService.getExpense(params.id);
 	const accounts = await db.query.accounts.findMany();
-	const categories = await categoriesService.getCategories();
+	const categories = await categoriesService.getCategoryByType(transactionType);
 
-	const form = await superValidate(typebox(updateExpenseSchema), {
+	const expenseForm = await superValidate(typebox(updateExpenseSchema), {
 		defaults: {
 			amount: expense?.amount ?? 0,
 			description: expense?.description ?? '',
@@ -25,8 +28,24 @@ export const load: PageServerLoad = async ({ params }) => {
 			categoryId: expense?.categoryId ?? categories[0]?.id ?? ''
 		}
 	});
+	const incomeForm = await superValidate(typebox(updateIncomeSchema), {
+		defaults: {
+			amount: 0,
+			description: '',
+			date: new Date().toISOString().split('T')[0],
+			accountId: accounts.find((account) => account.is_primary)?.id ?? accounts[0]?.id ?? '',
+			categoryId: categories[0]?.id ?? ''
+		}
+	});
 
-	return { accounts, categories, form, expense };
+	return {
+		accounts,
+		categories,
+		expenseForm,
+		incomeForm,
+		expense,
+		transactionType
+	};
 };
 
 export const actions: Actions = {
