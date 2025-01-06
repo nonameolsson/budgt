@@ -8,8 +8,11 @@
 	<h1 class="mb-4 text-2xl font-bold">Transactions</h1>
 	<div class="mb-8">
 		<h2 class="mb-4 text-xl font-semibold">Expenses</h2>
-		<a href="/expenses/create" class="mb-4 inline-block rounded bg-blue-500 px-4 py-2 text-white">
-			Create Expense
+		<a
+			href="/transactions/expense/add"
+			class="mb-4 inline-block rounded bg-blue-500 px-4 py-2 text-white"
+		>
+			Add Expense
 		</a>
 		<ul>
 			{#each data.expenses as expense}
@@ -17,7 +20,10 @@
 					<span>{expense.description}</span>
 					<span>{expense.amount}</span>
 					<span>{expense.date}</span>
-					<a href={`/expenses/edit/${expense.id}`} class="rounded bg-yellow-500 p-2 text-white">
+					<a
+						href={`transactions/expense/edit/${expense.id}`}
+						class="rounded bg-yellow-500 p-2 text-white"
+					>
 						Edit
 					</a>
 					<form method="POST" action="?/deleteExpense" use:enhance class="inline">
@@ -30,8 +36,11 @@
 	</div>
 	<div>
 		<h2 class="mb-4 text-xl font-semibold">Income</h2>
-		<a href="/income/create" class="mb-4 inline-block rounded bg-blue-500 px-4 py-2 text-white">
-			Create Income
+		<a
+			href="/transactions/income/add"
+			class="mb-4 inline-block rounded bg-blue-500 px-4 py-2 text-white"
+		>
+			Add Income
 		</a>
 		<ul>
 			{#each data.incomes as income}
@@ -39,7 +48,10 @@
 					<span>{income.description}</span>
 					<span>{income.amount}</span>
 					<span>{income.date}</span>
-					<a href={`/income/edit/${income.id}`} class="rounded bg-yellow-500 p-2 text-white">
+					<a
+						href={`/transactions/income/edit/${income.id}`}
+						class="rounded bg-yellow-500 p-2 text-white"
+					>
 						Edit
 					</a>
 					<form method="POST" action="?/deleteIncome" use:enhance class="inline">
